@@ -27,11 +27,12 @@ Then open http://localhost:4321
 
 ## Deploy
 
-Upload the whole folder to any static host — Netlify, Cloudflare Pages, or plain
-shared hosting via FTP. Nothing needs to be compiled.
+Hosted on Vercel (project `mobettagreen`) — pushing to `main` autodeploys.
+Production domain: **mobettagreen.org**. No build step; Vercel serves the repo
+root as static files.
 
-Before launch, set the real domain in the two absolute URLs in `index.html`:
-`og:url` and `og:image`.
+The `og:url` and `og:image` tags in `index.html` are absolute and point at
+`https://mobettagreen.org` — update them if the domain ever changes.
 
 ## Brand
 
