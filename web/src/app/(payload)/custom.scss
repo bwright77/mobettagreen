@@ -267,3 +267,213 @@
   justify-content: center;
   margin: 0;
 }
+
+/* ------------------------------------------------------------- dashboard -- */
+/* Sits above Payload's default collection cards via beforeDashboard. */
+.mbg-dash {
+  margin-bottom: 2.5rem;
+}
+
+.mbg-dash__welcome h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+.mbg-dash__welcome p {
+  margin: 0;
+  color: var(--theme-elevation-600);
+}
+
+.mbg-dash__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.5rem 0 2rem;
+}
+.mbg-dash__action {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.6rem 1.1rem;
+  border-radius: 8px;
+  border: 1px solid var(--theme-elevation-150);
+  background: var(--theme-elevation-0);
+  color: var(--theme-elevation-800);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+.mbg-dash__action:hover {
+  border-color: #45be6b;
+  background: var(--theme-elevation-50);
+}
+.mbg-dash__action--primary {
+  background: #45be6b;
+  border-color: #45be6b;
+  color: #fff;
+}
+.mbg-dash__action--primary:hover {
+  background: #2e9a50;
+  border-color: #2e9a50;
+}
+
+.mbg-dash__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+@media (max-width: 60rem) {
+  .mbg-dash__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mbg-dash__panel {
+  padding: 1.25rem 1.4rem 1.4rem;
+  border-radius: 12px;
+  border: 1px solid var(--theme-elevation-100);
+  background: var(--theme-elevation-0);
+}
+.mbg-dash__panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.9rem;
+}
+.mbg-dash__panel-head h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+.mbg-dash__panel-head a {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #2e9a50;
+  text-decoration: none;
+}
+.mbg-dash__panel-head a:hover {
+  text-decoration: underline;
+}
+
+.mbg-dash__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.mbg-dash__list > li > a {
+  display: block;
+  padding: 0.7rem 0.85rem;
+  border-radius: 9px;
+  background: var(--theme-elevation-50);
+  text-decoration: none;
+  color: inherit;
+  transition: background 120ms ease;
+}
+.mbg-dash__list > li > a:hover {
+  background: var(--theme-elevation-100);
+}
+
+.mbg-dash__event-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.mbg-dash__event-title {
+  font-weight: 600;
+}
+.mbg-dash__event-date {
+  font-size: 0.8rem;
+  color: var(--theme-elevation-600);
+  white-space: nowrap;
+}
+.mbg-dash__event-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.15rem;
+  font-size: 0.8rem;
+  color: var(--theme-elevation-600);
+}
+.mbg-dash__seats {
+  font-weight: 600;
+  color: #2e9a50;
+}
+.mbg-dash__seats.is-full {
+  color: #e23b2e;
+}
+
+/* Fill bar. Green while there's room, red once it's full. */
+.mbg-dash__bar {
+  margin-top: 0.5rem;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--theme-elevation-150);
+  overflow: hidden;
+}
+.mbg-dash__bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: #45be6b;
+}
+.mbg-dash__bar > span.is-full {
+  background: #e23b2e;
+}
+
+.mbg-dash__reg > a {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.15rem 0.6rem;
+}
+.mbg-dash__reg-name {
+  font-weight: 600;
+}
+.mbg-dash__reg-event {
+  grid-column: 1;
+  font-size: 0.8rem;
+  color: var(--theme-elevation-600);
+}
+.mbg-dash__status {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  justify-self: end;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  background: var(--theme-elevation-150);
+  color: var(--theme-elevation-700);
+}
+.mbg-dash__status--confirmed {
+  background: rgba(69, 190, 107, 0.18);
+  color: #227a3d;
+}
+.mbg-dash__status--waitlisted {
+  background: rgba(63, 50, 43, 0.12);
+  color: #6b5a4e;
+}
+.mbg-dash__status--cancelled {
+  background: rgba(226, 59, 46, 0.14);
+  color: #b82a20;
+}
+.mbg-dash__status--pending {
+  background: rgba(226, 179, 46, 0.2);
+  color: #8a6d00;
+}
+
+.mbg-dash__empty {
+  margin: 0;
+  color: var(--theme-elevation-500);
+  font-size: 0.9rem;
+}
+.mbg-dash__empty a {
+  color: #2e9a50;
+  font-weight: 600;
+  text-decoration: none;
+}

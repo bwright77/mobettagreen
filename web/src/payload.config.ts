@@ -36,6 +36,9 @@ export default buildConfig({
         Logo: '@/components/admin/Logo#Logo',
         Icon: '@/components/admin/Icon#Icon',
       },
+      // A branded launchpad above the stock collection cards — quick actions,
+      // sign-ups filling up, and who just registered.
+      beforeDashboard: ['@/components/admin/DashboardHome#DashboardHome'],
     },
   },
   collections: [Pages, Events, Registrations, Press, Partners, Producers, Media, Users],
