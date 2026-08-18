@@ -86,10 +86,10 @@ export default async function OurStoryPage() {
               </div>
               <FigureSlot
                 tilt={1}
-                src="/images/miss-beverly.jpg"
-                alt="Beverly Grant beneath the red Mo'Betta Green canopy at the market, sunflowers and pumpkins in the foreground."
+                src="/images/sop_green_tomatoes_2018.jpg"
+                alt="Beverly Grant in a Mo'Betta Green T-shirt and straw hat, leaning on the tailgate of a red pickup loaded with crates of tomatoes."
                 want=""
-                ratio="4 / 3"
+                ratio="1 / 1"
               />
             </section>
 
@@ -111,7 +111,9 @@ export default async function OurStoryPage() {
               </div>
               <FigureSlot
                 tilt={4}
-                want="Seeds of Power Unity Farm — a growing site in Cole, Uptown or Northeast Park Hill, ideally with people working it rather than just beds. A cooking demo or movement class in progress also works. Portrait or square suits this one."
+                src="/images/greens-seeds.jpg"
+                alt="Two children running along a planted row at the farm, beans and greens either side, houses and evening sun beyond."
+                want=""
                 ratio="1 / 1"
               />
             </section>
@@ -133,8 +135,10 @@ export default async function OurStoryPage() {
               </div>
               <FigureSlot
                 tilt={2}
-                want="RGC Day — the July 20 gathering. Food, music, yoga, people together. Portrait works well here. Ask Miss Bev whether she wants Reese pictured; that is entirely her call, and the page works without it."
-                ratio="3 / 4"
+                src="/images/rgc_logo.jpeg"
+                alt="Random Gestures of Compassion — The Reese Grant-Cobb Legacy. An illustrated portrait of Reese beside the lettering."
+                want=""
+                ratio="1 / 1"
               />
             </section>
 
@@ -153,8 +157,10 @@ export default async function OurStoryPage() {
               </div>
               <FigureSlot
                 tilt={5}
-                want="The market doing the work — the SNAP or Double Up table, produce changing hands, a full stall on a busy day. Landscape. This one carries the impact section, so it wants people in it."
-                ratio="3 / 2"
+                src="/images/sop_truck_produce.jpg"
+                alt="A grower in a straw hat lifting a crate of chard into the bed of a red pickup already loaded with kale and lettuce."
+                want=""
+                ratio="11 / 20"
               />
             </section>
           </>

@@ -12,6 +12,8 @@ export default async function EventsPage() {
   const payload = await getPayload({ config: await config })
   const now = new Date().toISOString()
 
+  const settings = await payload.findGlobal({ slug: 'settings' })
+
   const events = await payload.find({
     collection: 'events',
     where: { startsAt: { greater_than: now } },
@@ -46,6 +48,16 @@ export default async function EventsPage() {
           </p>
         </div>
       )}
+
+      {settings?.vendorApplicationUrl ? (
+        <section className="vend">
+          <h2>Want to vend with us?</h2>
+          {settings.vendorApplicationNote ? <p>{settings.vendorApplicationNote}</p> : null}
+          <a className="btn btn--red" href="/vend">
+            Submit a vendor application
+          </a>
+        </section>
+      ) : null}
     </div>
   )
 }

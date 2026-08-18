@@ -9,13 +9,11 @@ export function SiteFooter() {
           <div className="find-us__col">
             <h2>Find the market</h2>
             <p className="find-us__addr">
-              2401 Welton St
+              Charles Cousins Plaza
               <br />
-              Five Points, Denver, CO
+              2401 Welton St, Five Points
             </p>
-            <p className="find-us__note">
-              Market days &amp; seasonal locations announced on our social channels.
-            </p>
+            <p className="find-us__note">Saturdays, 10am &ndash; 2pm through the season.</p>
           </div>
 
           <div className="find-us__col">

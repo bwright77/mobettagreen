@@ -1135,3 +1135,23 @@ main > :first-child:not(.hero) {
   margin: 0;
   max-width: none;
 }
+
+/* ------------------------------------------------------------- vendors -- */
+
+.vend {
+  margin-top: clamp(3rem, 7vw, 4.5rem);
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+  border-radius: calc(var(--radius) + 4px);
+  background: var(--brown);
+  color: var(--paper);
+  max-width: 44rem;
+}
+.vend h2 {
+  font-size: clamp(1.3rem, 3vw, 1.75rem);
+  margin-bottom: 0.75rem;
+}
+.vend p {
+  color: rgba(247, 243, 234, 0.8);
+  margin-bottom: 1.5rem;
+  max-width: 42ch;
+}
