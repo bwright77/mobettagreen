@@ -60,17 +60,20 @@ conversation from drifting.
 
 ## Stack
 
-Next.js on Vercel, Postgres via Supabase, Payload for content, Stripe for money, headless
-Shopify for the store.
+Next.js on Vercel, Postgres via Supabase, Payload for content, Stripe for money.
 
 | Layer | Choice | Notes |
 | --- | --- | --- |
 | App & hosting | **Next.js on Vercel** | Already the deploy target — the coming-soon page ships there now. |
-| Database | **Supabase Postgres** | |
+| Database | **Supabase Postgres** | Project `eiaimbjpvmkpwzwhbqmf`. |
 | Content | **Payload CMS v3**, admin at `/admin` | Official [`@payloadcms/db-postgres`](https://payloadcms.com/docs/database/postgres) Drizzle adapter takes the Supabase connection string directly. |
 | Auth | **Supabase Auth** | No hand-rolled session management. |
-| Payments | **Stripe** | Billing for recurring sponsorship and supporter membership; Checkout for class and dinner registration. |
-| Store | **Headless Shopify** behind our own front end | Keeps the design consistent and leaves the inventory problem with Shopify. |
+| Payments | **Stripe**, and only Stripe | Billing for recurring sponsorship and supporter membership; Checkout for class and dinner registration; Products, Checkout, and Stripe Tax for merch. |
+
+**No Shopify.** Merch volume doesn't justify a storefront with inventory management behind
+it. Stripe-native selling keeps one payment system, one dashboard, and one tax setup —
+and Stripe Tax now applies cleanly, since nothing routes through a second checkout.
+Revisit only if merch grows into real catalogue and inventory work.
 
 **Registrations as Payload collections**, in the same database as the content — class and
 dinner signups appear in the same panel Beverly uses to edit pages.
@@ -99,11 +102,6 @@ paid), which comes with the commerce tooling rather than as a separate program.
 
 ### Stack decisions
 
-- **Stripe Tax or Shopify tax — not both.** Headless Shopify still completes orders
-  through Shopify's own checkout, and Shopify computes the tax on them, so Stripe Tax
-  doesn't sit in that path. Either the store is Shopify end to end (its checkout, its tax)
-  or it's Stripe-native (Products, Checkout, Stripe Tax) and Shopify drops out. Stripe
-  still handles registrations, sponsorship, and membership either way.
 - **Which Stripe account receives donations.** Deductible gifts have to land with
   Confluence Colorado, not Mo'Betta Green — so the donate flow either links out to
   Confluence's own page or runs on a Stripe account belonging to Confluence, kept separate
