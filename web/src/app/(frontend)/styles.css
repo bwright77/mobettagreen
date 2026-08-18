@@ -1404,3 +1404,123 @@ main > :first-child:not(.hero) {
 .event-icon--other svg {
   stroke: var(--brown-mid);
 }
+
+/* -------------------------------------------------------------- sign-up -- */
+.signup {
+  display: grid;
+  gap: 1.1rem;
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  background: var(--paper-warm);
+  border-radius: calc(var(--radius) + 4px);
+}
+
+.signup__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+.signup__title {
+  margin: 0;
+  font-size: 1.4rem;
+}
+.signup__seats {
+  margin: 0;
+  font-weight: 700;
+  color: var(--green-dark);
+}
+
+.signup__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+}
+.field > span {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+.field > span em {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+.field--narrow {
+  max-width: 8rem;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 2px solid rgba(63, 50, 43, 0.16);
+  border-radius: 12px;
+  background: var(--white);
+  font: inherit;
+  color: var(--ink);
+}
+.field textarea {
+  resize: vertical;
+}
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(69, 190, 107, 0.25);
+}
+.field input:disabled,
+.field textarea:disabled {
+  background: rgba(63, 50, 43, 0.04);
+  cursor: not-allowed;
+}
+
+.signup .btn {
+  justify-self: start;
+}
+.signup .btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.signup__error {
+  margin: 0;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  background: rgba(226, 59, 46, 0.1);
+  color: var(--red-dark);
+  font-weight: 600;
+}
+
+/* The confirmation that replaces the form once someone's in. */
+.signup--done {
+  border-left: 6px solid var(--green);
+}
+.signup--waitlisted {
+  border-left-color: var(--brown-mid);
+}
+.signup__done-head {
+  margin: 0 0 0.35rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--ink);
+}
+.signup--done p:last-child {
+  margin: 0;
+  color: var(--ink-muted);
+}
+
+@media (max-width: 34rem) {
+  .signup__row {
+    grid-template-columns: 1fr;
+  }
+  .field--narrow {
+    max-width: none;
+  }
+}
