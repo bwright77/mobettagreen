@@ -4,6 +4,7 @@ import { getPayload, APIError } from 'payload'
 import { revalidatePath } from 'next/cache'
 
 import config from '@/payload.config'
+import { sendRegistrationEmail } from '@/lib/registration-email'
 
 /**
  * Public event sign-up.
@@ -81,6 +82,28 @@ export async function registerForEvent(_prev: RegState, formData: FormData): Pro
 
     // The seats-left line on the page is now stale.
     revalidatePath(`/events/${slug}`)
+
+    // Confirmation email — best effort. They're already registered; a mail
+    // failure must not turn a good sign-up into an error, so it's caught here
+    // and logged rather than thrown.
+    const emailStatus = created.status === 'waitlisted' ? 'waitlisted' : 'confirmed'
+    try {
+      await sendRegistrationEmail(payload, {
+        to: email,
+        name,
+        partySize,
+        status: emailStatus,
+        event: {
+          title: event.title,
+          startsAt: event.startsAt,
+          endsAt: event.endsAt,
+          locationName: event.locationName,
+          address: event.address,
+        },
+      })
+    } catch (mailErr) {
+      console.error('registration confirmation email failed', mailErr)
+    }
 
     const firstName = name.split(' ')[0]
     if (created.status === 'waitlisted') {

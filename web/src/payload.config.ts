@@ -1,5 +1,6 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { s3Storage } from '@payloadcms/storage-s3'
+import { resendAdapter } from '@payloadcms/email-resend'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -44,6 +45,20 @@ export default buildConfig({
   collections: [Pages, Events, Registrations, Press, Partners, Producers, Media, Users],
   globals: [Home, Settings],
   editor: lexicalEditor(),
+  /**
+   * Transactional email via Resend. Only wired up when a key is present — with
+   * no key Payload falls back to logging emails to the console, so dev and
+   * one-off scripts keep working without credentials. The from-address and
+   * name come from the environment so the sandbox sender can be swapped for
+   * noreply@mobettagreen.org (once the domain's verified) with no code change.
+   */
+  email: process.env.RESEND_API_KEY
+    ? resendAdapter({
+        apiKey: process.env.RESEND_API_KEY,
+        defaultFromAddress: process.env.EMAIL_FROM_ADDRESS || 'onboarding@resend.dev',
+        defaultFromName: process.env.EMAIL_FROM_NAME || "R&B's Mo'Betta Green",
+      })
+    : undefined,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
