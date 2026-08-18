@@ -1,2 +1,12 @@
 .DS_Store
 .claude/settings.local.json
+
+# dependencies
+node_modules/
+
+# local env
+.env
+.env*.local
+
+# vercel
+.vercel
