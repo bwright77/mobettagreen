@@ -540,7 +540,10 @@ a.card:hover {
 .pillars {
   max-width: var(--wrap);
   margin: 0 auto;
-  padding: 0 var(--pad) clamp(2.5rem, 6vw, 4rem);
+  /* Top padding is set here rather than as a later override so the cascade
+     stays readable. On the coming-soon page this section followed the founder
+     block; here it follows the dark next-market panel and needs the air. */
+  padding: clamp(2.25rem, 5vw, 3.25rem) var(--pad) clamp(2.5rem, 6vw, 4rem);
 }
 
 .pillars__list {
