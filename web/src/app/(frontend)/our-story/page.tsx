@@ -50,9 +50,9 @@ export default async function OurStoryPage() {
         ) : (
           <p className="story__lede">
             Beverly Grant grew up in Northeast Park Hill watching a thriving Black
-            neighbourhood lose its grocery stores. In 2010 she started a farmers market to
-            put good food back — and it grew into a farm, free classes, and a day the city
-            marks every July.
+            neighborhood lose its grocery stores. In 2010 she started a farmers market to
+            put good food back, and it has since become a farm, a set of free classes, and
+            a place people come to be well.
           </p>
         )}
       </article>
@@ -85,12 +85,25 @@ export default async function OurStoryPage() {
                 Ranch. Seeds of Power Unity Farm, growing on sites in Cole, Uptown, and
                 Northeast Park Hill. Free cooking demos and nutrition education under HEAL
                 — Healthy Eating, Active Living — alongside yoga, Qi Gong, Zumba, and
-                dance. Community Farm Dinners. A Juneteenth Freedom Celebration. And RGC
-                Day, proclaimed by the Denver Mayor&rsquo;s Office, held every July 20.
+                dance. Community Farm Dinners, and a Juneteenth Freedom Celebration.
               </p>
               <p>
                 It runs on two full-time staff and about fifteen volunteers, and it takes
                 SNAP at the table.
+              </p>
+            </section>
+
+            <section className="story__block">
+              <h2>What compassion asks</h2>
+              <p>
+                In 2018 Miss Bev&rsquo;s youngest son, Reese, was killed, weeks after he
+                finished high school. Random Gestures of Compassion Day came out of that
+                loss. It is held every July 20 — his birthday — carries his initials,
+                and is proclaimed by the Denver Mayor&rsquo;s Office.
+              </p>
+              <p>
+                The day asks for the thing Reese practiced: intentional kindness, and
+                making a stranger a friend. <Link href="/rgc-day">More about RGC Day</Link>.
               </p>
             </section>
 

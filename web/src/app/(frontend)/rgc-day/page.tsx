@@ -24,12 +24,12 @@ export default async function RgcDayPage() {
 
   return (
     <>
-      <article className="wrap section" style={{ maxWidth: '48rem' }}>
+      <article className="wrap section story">
         <p className="eyebrow">Every July 20 · Proclaimed in Denver by the Mayor&rsquo;s Office</p>
-        <h1 style={{ fontSize: 'clamp(2rem, 6vw, 3.4rem)', marginBottom: '1.25rem' }}>
+        <h1 className="story__title">
           {page?.title ?? 'Random Gestures of Compassion Day'}
         </h1>
-        {page?.summary ? <p style={{ fontSize: '1.12rem' }}>{page.summary}</p> : null}
+        {page?.summary ? <p className="story__lede">{page.summary}</p> : null}
       </article>
 
       {/* Torn out of the page because it is the reason the day exists. */}
@@ -40,12 +40,12 @@ export default async function RgcDayPage() {
         </blockquote>
       </TornBand>
 
-      <article className="wrap section" style={{ maxWidth: '48rem' }}>
+      <article className="wrap section story">
 
       {page?.body ? (
         <RichText data={page.body} />
       ) : (
-        <div className="empty" style={{ textAlign: 'left', marginTop: '1.5rem' }}>
+        <div className="empty" style={{ textAlign: 'left' }}>
           <p>
             The rest of this page is waiting on Miss Bev&rsquo;s words — Reese&rsquo;s
             story, and what the day asks of people, belong in her voice. Edit it in the

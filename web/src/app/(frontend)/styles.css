@@ -23,6 +23,10 @@
   --wrap: 72rem;
   --pad: clamp(1.25rem, 5vw, 3.5rem);
   --radius: 16px;
+  /* One drop from the nav to the first content, shared by every page so the
+     rhythm matches down the site. The home hero opts out — its headroom is
+     tuned to land the torn band on the fold. */
+  --page-top: clamp(3rem, 7vw, 5rem);
 
   /* The coming-soon stylesheet names its faces --font-display / --font-condensed
      / --font-body. next/font supplies --font-archivo-black / --font-anton /
@@ -933,10 +937,16 @@ body > main {
 /* ------------------------------------------------------------ our story -- */
 /* Long-form reading — generous throughout. */
 
+/* The column keeps a ~69-character measure, but sits on the same left rail as
+   the nav, footer, and every listing page rather than floating centred. */
 .story {
-  max-width: 44rem;
   padding-top: clamp(3rem, 7vw, 5rem);
   padding-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+/* 37rem holds a ~69-character line — the column used to be 44rem but that
+   included its own padding, so capping children at 44 widened the measure. */
+.story > * {
+  max-width: 37rem;
 }
 .story__title {
   font-size: clamp(2rem, 6vw, 3.4rem);
@@ -979,4 +989,9 @@ body > main {
 }
 .founder__more a:hover {
   color: var(--brown);
+}
+
+/* Every page starts its content the same distance below the nav. */
+main > :first-child:not(.hero) {
+  padding-top: var(--page-top);
 }
