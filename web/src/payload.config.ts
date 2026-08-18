@@ -93,7 +93,27 @@ export default buildConfig({
      */
     s3Storage({
       enabled: Boolean(process.env.S3_BUCKET),
-      collections: { media: true },
+      collections: {
+        media: {
+          /**
+           * The bucket is public, so serve images straight from Supabase's CDN
+           * rather than proxying every one through Payload's /api/media/file
+           * route. Proxying meant each image was a serverless invocation that
+           * looked the file up in the DB and streamed it from S3 — under the
+           * pool's 3-connection cap they serialized, so a page full of images
+           * loaded one per reload. Direct CDN URLs load in parallel with no
+           * function involved.
+           */
+          disablePayloadAccessControl: true,
+          generateFileURL: ({ filename, prefix }) => {
+            const base = (process.env.S3_ENDPOINT || '').replace(
+              /\/storage\/v1\/s3\/?$/,
+              '/storage/v1/object/public',
+            )
+            return [base, process.env.S3_BUCKET, prefix, filename].filter(Boolean).join('/')
+          },
+        },
+      },
       bucket: process.env.S3_BUCKET || '',
       config: {
         endpoint: process.env.S3_ENDPOINT,
