@@ -96,6 +96,9 @@ export default async function HomePage() {
             Born and raised in Northeast Park Hill, Miss Beverly built Mo&rsquo;Betta Green
             to put good food back in the neighborhoods that lost it.
           </p>
+          <p className="founder__more">
+            <Link href="/our-story">Read our story &rarr;</Link>
+          </p>
         </blockquote>
       </section>
 

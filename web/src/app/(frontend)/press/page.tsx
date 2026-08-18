@@ -2,6 +2,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 
 import config from '@/payload.config'
+import { PressRow } from '@/components/PressRow'
 
 export const dynamic = 'force-dynamic'
 export const metadata = { title: 'Press' }
@@ -10,11 +11,6 @@ const YEAR_UNKNOWN = 'Undated'
 
 const yearOf = (iso?: string | null) =>
   iso ? String(new Date(iso).getUTCFullYear()) : YEAR_UNKNOWN
-
-const dayMonth = (iso: string) =>
-  new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' }).format(
-    new Date(iso),
-  )
 
 export default async function PressPage() {
   const payload = await getPayload({ config: await config })
@@ -49,47 +45,9 @@ export default async function PressPage() {
         <section key={group.year}>
           <h3 className="press-year">{group.year}</h3>
           <ul className="press-list">
-            {group.items.map((item) => {
-              const uploaded =
-                item.image && typeof item.image === 'object' ? item.image.url : undefined
-              const src = uploaded ?? item.imageUrl
-              return (
-                <li className="press-item" key={item.id}>
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    {src ? (
-                      <figure className="press-item__figure">
-                        {/* The outlet's own lead image, hotlinked rather than copied.
-                            Plain img so nothing is re-served from our domain. */}
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={src}
-                          alt={`${item.outlet}: ${item.title}`}
-                          loading="lazy"
-                          referrerPolicy="no-referrer"
-                        />
-                      </figure>
-                    ) : (
-                      <figure className="press-item__figure press-item__figure--none">
-                        {item.outlet}
-                      </figure>
-                    )}
-
-                    <div>
-                      <p className="press-item__meta">
-                        {item.outlet}
-                        {/* Only claim a day when we actually know one. */}
-                        {item.publishedAt && !item.dateIsApproximate
-                          ? ` · ${dayMonth(item.publishedAt)}`
-                          : ''}
-                      </p>
-                      <h4 className="press-item__title">{item.title}</h4>
-                      {item.excerpt ? <p className="press-item__excerpt">{item.excerpt}</p> : null}
-                      {item.byline ? <p className="press-item__byline">By {item.byline}</p> : null}
-                    </div>
-                  </a>
-                </li>
-              )
-            })}
+            {group.items.map((item) => (
+              <PressRow key={item.id} item={item} />
+            ))}
           </ul>
         </section>
       ))}

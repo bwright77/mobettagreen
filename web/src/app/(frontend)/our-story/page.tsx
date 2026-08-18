@@ -1,11 +1,11 @@
 import { RichText } from '@payloadcms/richtext-lexical/react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 import React from 'react'
 
 import config from '@/payload.config'
 import { TornBand } from '@/components/TornBand'
+import { PressRow } from '@/components/PressRow'
 
 export const dynamic = 'force-dynamic'
 export const metadata = {
@@ -34,7 +34,7 @@ export default async function OurStoryPage() {
       where: { featured: { equals: true } },
       sort: '-publishedAt',
       limit: 3,
-      depth: 0,
+      depth: 1,
     }),
   ])
   const page = found.docs[0]
@@ -118,14 +118,9 @@ export default async function OurStoryPage() {
               All coverage
             </Link>
           </div>
-          <ul className="story__sources">
+          <ul className="press-list">
             {press.docs.map((item) => (
-              <li key={item.id}>
-                <a href={item.url} target="_blank" rel="noopener noreferrer">
-                  <span className="story__source-outlet">{item.outlet}</span>
-                  {item.title}
-                </a>
-              </li>
+              <PressRow key={item.id} item={item} showYear />
             ))}
           </ul>
         </section>
