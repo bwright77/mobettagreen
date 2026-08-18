@@ -180,43 +180,84 @@ p {
   border-bottom-color: var(--green);
 }
 
-/* --------------------------------------------------------------- footer -- */
+/* ------------------------------------------------- find us + footer -- */
+/* Ported verbatim from the coming-soon page. */
 
-.site-footer {
-  margin-top: clamp(3rem, 8vw, 5rem);
-  padding-top: 2rem;
-  padding-bottom: 2.5rem;
-  border-top: 2px solid var(--rule);
-  font-size: 0.9rem;
-  color: var(--ink-muted);
+.find-us {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--pad) clamp(2.5rem, 6vw, 4rem);
 }
-.site-footer__grid {
+
+.find-us__grid {
   display: grid;
-  gap: 1.75rem;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  padding-top: clamp(2rem, 5vw, 3rem);
+  border-top: 2px solid var(--rule);
 }
-.site-footer h2 {
+
+.find-us__col h2 {
   font-family: var(--font-anton), 'Arial Narrow', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--red);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
 }
-.site-footer a {
+
+.find-us__addr {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.65rem;
+}
+
+.find-us__note {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--ink-muted);
+}
+
+.link {
+  color: inherit;
   text-decoration: underline;
   text-decoration-color: var(--green);
-  text-underline-offset: 3px;
+  text-underline-offset: 4px;
   text-decoration-thickness: 2px;
+  transition: color 150ms ease;
 }
-.site-footer__legal {
-  margin-top: 2rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--rule-soft);
+.link:hover {
+  color: var(--green-dark);
+}
+
+.site-footer {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--pad) clamp(2rem, 5vw, 3rem);
+  text-align: center;
+}
+
+.site-footer__tag {
+  font-family: var(--font-anton), 'Arial Narrow', sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+  margin-bottom: 0.85rem;
+}
+
+.site-footer__meta {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 1.25rem;
-  justify-content: space-between;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.dot {
+  opacity: 0.5;
 }
 
 /* --------------------------------------------------------------- shared -- */
@@ -612,12 +653,3 @@ a.card:hover {
 .hero__title em { font-style: normal; color: var(--green-dark); }
 .hero__lede { max-width: 48ch; margin: 0 auto 2rem; font-size: clamp(1.05rem, 0.98rem + 0.45vw, 1.25rem); color: var(--ink-muted); }
 
-.site-footer__tag {
-  font-family: var(--font-anton), 'Arial Narrow', sans-serif;
-  font-size: clamp(1rem, 2.5vw, 1.35rem);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--green-dark);
-  text-align: center;
-  margin: 0 0 1.5rem;
-}

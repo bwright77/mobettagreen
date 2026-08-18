@@ -279,9 +279,20 @@ export interface Press {
    */
   url: string;
   /**
+   * Author, as credited by the outlet.
+   */
+  byline?: string | null;
+  /**
    * A line or two worth pulling out. Optional.
    */
   excerpt?: string | null;
+  /**
+   * The outlet's lead image, hotlinked rather than copied — the same thing a link preview shows. Leave to the seed script, or paste an og:image URL.
+   */
+  imageUrl?: string | null;
+  /**
+   * Our own or licensed art. Takes precedence over the hotlinked image.
+   */
   image?: (number | null) | Media;
   /**
    * Show this one first.
@@ -522,7 +533,9 @@ export interface PressSelect<T extends boolean = true> {
   outlet?: T;
   publishedAt?: T;
   url?: T;
+  byline?: T;
   excerpt?: T;
+  imageUrl?: T;
   image?: T;
   featured?: T;
   updatedAt?: T;

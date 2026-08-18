@@ -25,11 +25,32 @@ export const Press: CollectionConfig = {
     },
     { name: 'url', type: 'text', required: true, admin: { description: 'Full link to the article.' } },
     {
+      name: 'byline',
+      type: 'text',
+      admin: { description: 'Author, as credited by the outlet.' },
+    },
+    {
       name: 'excerpt',
       type: 'textarea',
       admin: { description: 'A line or two worth pulling out. Optional.' },
     },
-    { name: 'image', type: 'upload', relationTo: 'media' },
+    {
+      name: 'imageUrl',
+      type: 'text',
+      label: "Article's own image (link)",
+      admin: {
+        description:
+          "The outlet's lead image, hotlinked rather than copied — the same thing a link preview shows. Leave to the seed script, or paste an og:image URL.",
+      },
+    },
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description: 'Our own or licensed art. Takes precedence over the hotlinked image.',
+      },
+    },
     {
       name: 'featured',
       type: 'checkbox',
