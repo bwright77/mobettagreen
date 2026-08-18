@@ -275,6 +275,10 @@ export interface Press {
   outlet: string;
   publishedAt?: string | null;
   /**
+   * Some pieces carry no date and have to be placed from their content. Ticking this shows only the year rather than asserting a day we do not know.
+   */
+  dateIsApproximate?: boolean | null;
+  /**
    * Full link to the article.
    */
   url: string;
@@ -532,6 +536,7 @@ export interface PressSelect<T extends boolean = true> {
   title?: T;
   outlet?: T;
   publishedAt?: T;
+  dateIsApproximate?: T;
   url?: T;
   byline?: T;
   excerpt?: T;

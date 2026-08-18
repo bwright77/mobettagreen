@@ -50,10 +50,12 @@ export default async function HomePage() {
         </p>
       </section>
 
-      {/* Torn brown ribbon, lifted straight from the market banner */}
+      {/* Torn brown ribbon from the market banner. The line spells TOLD — Miss
+          Bev's rule for what food should be — so the initials are marked. */}
       <div className="ribbon">
         <p className="ribbon__text">
-          Traceable Origin, Organic, Local, Delicious = Integris Food<sup>&reg;</sup>
+          <b>T</b>raceable Origin, <b>O</b>rganic, <b>L</b>ocal, <b>D</b>elicious = Integris
+          Food<sup>&reg;</sup>
         </p>
       </div>
 
@@ -135,10 +137,11 @@ export default async function HomePage() {
                 <path d="M12 20.5s-7.5-4.4-7.5-9.4A4.1 4.1 0 0 1 12 8.4a4.1 4.1 0 0 1 7.5 2.7c0 5-7.5 9.4-7.5 9.4Z" />
               </svg>
             </span>
-            <h2>Wellness for All</h2>
+            <h2>HEAL</h2>
             <p>
-              Free cooking demos, nutrition education, and movement &mdash; yoga, Qi Gong,
-              Zumba, and dance &mdash; open to every body.
+              <strong>Healthy Eating, Active Living.</strong> Free cooking demos, nutrition
+              education, and movement &mdash; yoga, Qi Gong, Zumba, and dance &mdash; open to
+              every body.
             </p>
           </li>
           <li className="pillar pillar--brown">

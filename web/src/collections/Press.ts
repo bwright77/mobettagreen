@@ -23,6 +23,16 @@ export const Press: CollectionConfig = {
         },
       ],
     },
+    {
+      name: 'dateIsApproximate',
+      type: 'checkbox',
+      label: 'Year only — exact date unknown',
+      admin: {
+        position: 'sidebar',
+        description:
+          'Some pieces carry no date and have to be placed from their content. Ticking this shows only the year rather than asserting a day we do not know.',
+      },
+    },
     { name: 'url', type: 'text', required: true, admin: { description: 'Full link to the article.' } },
     {
       name: 'byline',

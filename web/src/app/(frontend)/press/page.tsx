@@ -77,7 +77,10 @@ export default async function PressPage() {
                     <div>
                       <p className="press-item__meta">
                         {item.outlet}
-                        {item.publishedAt ? ` · ${dayMonth(item.publishedAt)}` : ''}
+                        {/* Only claim a day when we actually know one. */}
+                        {item.publishedAt && !item.dateIsApproximate
+                          ? ` · ${dayMonth(item.publishedAt)}`
+                          : ''}
                       </p>
                       <h4 className="press-item__title">{item.title}</h4>
                       {item.excerpt ? <p className="press-item__excerpt">{item.excerpt}</p> : null}

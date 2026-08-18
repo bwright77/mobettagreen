@@ -669,26 +669,46 @@ a.card:hover {
 
 /* ---------------------------------------------------------- press list -- */
 
+/* One rule per boundary. The year heading owns its rule; items are divided by
+   hairlines between them only — never a trailing one butting into the next
+   year's heading. */
+
+.press-year {
+  font-family: var(--font-condensed);
+  font-size: 1.05rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brown);
+  margin: clamp(2.75rem, 6vw, 4rem) 0 0;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid var(--rule);
+}
+.press-year:first-of-type {
+  margin-top: 0;
+}
+
 .press-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 2px solid var(--rule);
+}
+
+.press-item + .press-item {
+  border-top: 1px solid var(--rule-soft);
 }
 
 .press-item a {
   display: grid;
-  gap: 1.25rem;
+  gap: 1.1rem;
   grid-template-columns: 1fr;
   align-items: start;
-  padding: 1.6rem 0;
-  border-bottom: 1px solid var(--rule);
+  padding: 1.85rem 0;
   text-decoration: none;
 }
 @media (min-width: 40rem) {
   .press-item a {
-    grid-template-columns: 13.5rem 1fr;
-    gap: 1.75rem;
+    grid-template-columns: 15rem 1fr;
+    gap: 2rem;
   }
 }
 .press-item a:hover .press-item__title {
@@ -700,7 +720,8 @@ a.card:hover {
 
 .press-item__figure {
   margin: 0;
-  aspect-ratio: 16 / 10;
+  /* Shallower crop than 16/10 so less of the frame is thrown away. */
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 10px;
   background: var(--paper-warm);
@@ -710,38 +731,44 @@ a.card:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Editorial photos put faces in the upper third; a centred crop decapitates
+     them. Bias upward so heads stay in frame. */
+  object-position: 50% 28%;
   display: block;
 }
 
-/* Outlets that block us leave no image; keep the row aligned rather than
-   collapsing the column and breaking the rhythm down the page. */
+/* Outlets that block us leave no image; hold the column so the rhythm down the
+   page doesn't break. */
 .press-item__figure--none {
   display: grid;
   place-items: center;
-  font-family: var(--font-anton), 'Arial Narrow', sans-serif;
-  font-size: 0.8rem;
+  font-family: var(--font-condensed);
+  font-size: 0.78rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-muted);
-  opacity: 0.55;
+  opacity: 0.5;
   padding: 0.5rem;
   text-align: center;
 }
 
 .press-item__meta {
-  font-family: var(--font-anton), 'Arial Narrow', sans-serif;
+  font-family: var(--font-condensed);
   font-size: 0.82rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--red);
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.5rem;
 }
 .press-item__title {
-  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
-  margin-bottom: 0.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  line-height: 1.2;
+  margin: 0 0 0.55rem;
+  color: var(--brown);
 }
 .press-item__excerpt {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.55rem;
   color: var(--ink-muted);
   max-width: 62ch;
 }
@@ -752,18 +779,13 @@ a.card:hover {
   color: var(--ink-muted);
 }
 
-.press-year {
-  font-family: var(--font-anton), 'Arial Narrow', sans-serif;
-  font-size: 0.95rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--brown);
-  margin: 2.25rem 0 0.5rem;
-  padding-top: 1.25rem;
-  border-top: 2px solid var(--rule);
+/* The ribbon line spells TOLD; the initials carry it. */
+.ribbon__text b {
+  font-weight: inherit;
+  color: var(--green);
 }
-.press-year:first-child {
-  margin-top: 0;
-  padding-top: 0;
-  border-top: 0;
+
+.pillar p strong {
+  color: var(--brown);
+  font-weight: 700;
 }

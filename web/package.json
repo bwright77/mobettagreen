@@ -10,12 +10,13 @@
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
-    "lint": "cross-env NODE_OPTIONS=--no-deprecation eslint .",
+    "lint": "npm run check:css && cross-env NODE_OPTIONS=--no-deprecation eslint .",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "test": "npm run test:int && npm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
-    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
+    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
+    "check:css": "node scripts/check-css-vars.mjs"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.88.0",
