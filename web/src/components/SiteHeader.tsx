@@ -4,6 +4,7 @@ import React from 'react'
 import { Wordmark } from './Wordmark'
 
 const NAV = [
+  { href: '/our-story', label: 'Our Story' },
   { href: '/events', label: 'Market & Events' },
   { href: '/rgc-day', label: 'RGC Day' },
   { href: '/producers', label: 'Producers' },

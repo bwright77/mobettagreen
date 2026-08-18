@@ -372,8 +372,10 @@ p {
 /* ----------------------------------------------------------------- hero -- */
 
 .hero {
-  padding-top: clamp(2rem, 6vw, 3.5rem);
-  padding-bottom: clamp(1rem, 3vw, 2rem);
+  /* Headroom under the nav is tuned so the torn band lands on the fold at
+     laptop height rather than sitting well above it. */
+  padding-top: clamp(2.5rem, 8vw, 6.75rem);
+  padding-bottom: clamp(1.25rem, 3.5vw, 2.5rem);
   text-align: center;
 }
 .hero .logo {
@@ -424,10 +426,18 @@ p {
 .card-grid {
   display: grid;
   gap: 1.25rem;
-  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
   list-style: none;
   margin: 0;
   padding: 0;
+}
+/* The li stretches to the row but the card inside it didn't, so cards in the
+   same row came out ragged. */
+.card-grid > li {
+  display: flex;
+}
+.card-grid > li > .card {
+  flex: 1;
 }
 
 .card {
@@ -911,4 +921,60 @@ a.card:hover {
   font-size: 1em;
   margin-top: 0;
   letter-spacing: -0.01em;
+}
+
+/* Gives thin pages enough body that the footer isn't stranded halfway up.
+   A min-height rather than a flex column, which made the footer's own
+   max-width children shrink instead of stretching. */
+body > main {
+  min-height: 55vh;
+}
+
+/* ------------------------------------------------------------ our story -- */
+
+.story {
+  max-width: 46rem;
+}
+.story__title {
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  margin-bottom: 1.1rem;
+}
+.story__lede {
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
+  color: var(--ink-muted);
+  margin: 0;
+}
+.story__block + .story__block {
+  margin-top: clamp(2rem, 5vw, 2.75rem);
+}
+.story__block h2 {
+  font-size: clamp(1.25rem, 3vw, 1.65rem);
+  margin-bottom: 0.75rem;
+}
+
+.story__sources {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+.story__sources a {
+  display: grid;
+  gap: 0.15rem;
+  text-decoration: none;
+  padding: 0.85rem 0;
+}
+.story__sources a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--green);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+.story__source-outlet {
+  font-family: var(--font-condensed);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
 }
