@@ -1,6 +1,7 @@
 'use client'
 
 import { useAuth } from '@payloadcms/ui'
+import Link from 'next/link'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -83,9 +84,9 @@ export function AdminAvatar() {
                 style={{ top: coords.top, right: coords.right }}
               >
                 {email ? <p className="mbg-menu__who">{email}</p> : null}
-                <a className="mbg-menu__item" role="menuitem" href="/admin/account">
+                <Link className="mbg-menu__item" role="menuitem" href="/admin/account">
                   Account settings
-                </a>
+                </Link>
                 <button
                   className="mbg-menu__item mbg-menu__item--danger"
                   role="menuitem"
