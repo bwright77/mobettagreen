@@ -1,9 +1,11 @@
 import React from 'react'
+import { Analytics } from '@vercel/analytics/next'
 import './styles.css'
 
 export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+  description:
+    "R&B's Mo'Betta Green MarketPlace — a Black-owned farmers market in Denver's Five Points.",
+  title: "R&B's Mo'Betta Green MarketPlace",
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
@@ -13,6 +15,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en">
       <body>
         <main>{children}</main>
+        {/* Needs no configuration or env vars — posts to /_vercel/insights on our domain. */}
+        <Analytics />
       </body>
     </html>
   )
