@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 
 import config from '@/payload.config'
+import { TornBand } from '@/components/TornBand'
 
 export const dynamic = 'force-dynamic'
 export const metadata = {
@@ -22,19 +23,24 @@ export default async function RgcDayPage() {
   const page = found.docs[0]
 
   return (
-    <article className="wrap section" style={{ maxWidth: '48rem' }}>
-      <p className="eyebrow">Every July 20 · Proclaimed in Denver by the Mayor&rsquo;s Office</p>
-      <h1 style={{ fontSize: 'clamp(2rem, 6vw, 3.4rem)', marginBottom: '1.25rem' }}>
-        {page?.title ?? 'Random Gestures of Compassion Day'}
-      </h1>
+    <>
+      <article className="wrap section" style={{ maxWidth: '48rem' }}>
+        <p className="eyebrow">Every July 20 · Proclaimed in Denver by the Mayor&rsquo;s Office</p>
+        <h1 style={{ fontSize: 'clamp(2rem, 6vw, 3.4rem)', marginBottom: '1.25rem' }}>
+          {page?.title ?? 'Random Gestures of Compassion Day'}
+        </h1>
+        {page?.summary ? <p style={{ fontSize: '1.12rem' }}>{page.summary}</p> : null}
+      </article>
 
-      {/* Reese's own words, and the reason the day exists. */}
-      <blockquote className="rgc-quote">
-        <p>You are my friend, you just don&rsquo;t know it yet.</p>
-        <cite>Reese Grant-Cobb</cite>
-      </blockquote>
+      {/* Torn out of the page because it is the reason the day exists. */}
+      <TornBand variant="quote">
+        <blockquote className="ribbon__quote">
+          <p>&ldquo;You are my friend, you just don&rsquo;t know it yet.&rdquo;</p>
+          <cite>Reese Grant-Cobb</cite>
+        </blockquote>
+      </TornBand>
 
-      {page?.summary ? <p style={{ fontSize: '1.12rem' }}>{page.summary}</p> : null}
+      <article className="wrap section" style={{ maxWidth: '48rem' }}>
 
       {page?.body ? (
         <RichText data={page.body} />
@@ -46,7 +52,8 @@ export default async function RgcDayPage() {
             admin under Pages &rarr; RGC Day.
           </p>
         </div>
-      )}
-    </article>
+        )}
+      </article>
+    </>
   )
 }

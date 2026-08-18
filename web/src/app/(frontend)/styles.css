@@ -210,17 +210,6 @@ p {
   padding-top: clamp(2rem, 5vw, 3rem);
 }
 
-/* The torn edge from the banner divides the footer, in place of a hairline. */
-.find-us::before {
-  content: '';
-  display: block;
-  height: 14px;
-  margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
-  background-repeat: repeat-x;
-  background-size: 240px 14px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='14' preserveAspectRatio='none'%3E%3Cpath d='M0 14 C 18 4, 34 12, 52 6 C 70 0, 88 10, 108 5 C 126 1, 146 11, 168 6 C 188 2, 206 12, 224 7 C 232 5, 236 9, 240 8 L240 14 Z' fill='%233F322B'/%3E%3C/svg%3E");
-}
-
 .find-us__col h2 {
   font-family: var(--font-anton), 'Arial Narrow', sans-serif;
   font-size: 0.95rem;
@@ -872,4 +861,38 @@ a.card:hover {
 .ribbon:has(.ribbon__head) {
   padding-top: clamp(2rem, 5vw, 3rem);
   padding-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+/* -------------------------------------------------- torn-out quote -- */
+/* The tear is literal: a piece torn out of the page to hold something that
+   matters. It always carries content — never used as a divider. */
+
+.ribbon__quote {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+  /* Quote and attribution share one line so the tear stays a slim strip. */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.35rem 1rem;
+  text-align: center;
+}
+.ribbon__quote p {
+  font-family: var(--font-display);
+  /* Sized to hold one line at the widths we care about. */
+  font-size: clamp(0.95rem, 2.1vw, 1.45rem);
+  line-height: 1.25;
+  color: var(--paper);
+  margin: 0;
+}
+.ribbon__quote cite {
+  font-family: var(--font-condensed);
+  font-style: normal;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  white-space: nowrap;
 }

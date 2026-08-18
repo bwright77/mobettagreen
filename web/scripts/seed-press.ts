@@ -89,9 +89,20 @@ const PRESS: PressSeed[] = [
     publishedAt: '2020-07-30',
   },
   {
-    title: 'Beverly D. Grant, Livingston Fellow',
+    title: 'Beverly D. Grant named a Livingston Fellow',
     outlet: 'Bonfils-Stanton Foundation',
     url: 'https://www.bonfils-stantonfoundation.org/livingston-fellows/beverly-d-grant',
+    publishedAt: '2025-05-14',
+    excerpt:
+      'Recognised for community leadership and advocacy in Denver. The profile describes the 15-year-old MarketPlace and her 13 years hosting on KGNU public radio.',
+  },
+  {
+    title:
+      'Bonfils-Stanton Foundation announces its 20th-anniversary Livingston Fellowship cohort',
+    outlet: 'Bonfils-Stanton Foundation',
+    url: 'https://www.bonfils-stantonfoundation.org/stories/2025-fellowship-pr',
+    publishedAt: '2025-05-14',
+    excerpt: 'Beverly Grant named among the 2025 Livingston Fellows.',
   },
 ]
 
@@ -111,6 +122,11 @@ const PARTNERS = [
     name: 'Anthropocene Alliance',
     url: 'https://anthropocenealliance.org/',
     blurb: 'Partners with Mo’Betta Green and Seeds of Power Unity Farm.',
+  },
+  {
+    name: 'Confluence Colorado',
+    url: 'https://www.confluenceco.org/',
+    blurb: 'Fiscal agent for Mo’Betta Green since 2023, supporting the program side of the work.',
   },
   {
     name: 'Satya Yoga Cooperative',
