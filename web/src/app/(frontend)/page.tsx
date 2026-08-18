@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 import React from 'react'
@@ -39,7 +40,41 @@ export default async function HomePage() {
     <>
       <section className="wrap hero">
         <Wordmark />
-        <p className="hero__tagline">Growing food and sharing it changes lives</p>
+        <h1 className="hero__title">
+          <span>Something good</span>
+          <em>is growing.</em>
+        </h1>
+        <p className="hero__lede">
+          Fresh produce, free wellness classes, live music, and neighbors feeding
+          neighbors — across Denver&rsquo;s east side since 2010.
+        </p>
+      </section>
+
+      {/* Torn brown ribbon, lifted straight from the market banner */}
+      <div className="ribbon">
+        <p className="ribbon__text">
+          Traceable Origin, Organic, Local, Delicious = Integris Food<sup>&reg;</sup>
+        </p>
+      </div>
+
+      <section className="founder wrap" aria-label="About the founder">
+        <figure className="founder__photo">
+          <Image
+            src="/images/miss-beverly.jpg"
+            width={972}
+            height={732}
+            alt="Beverly Grant waving beneath the red Mo'Betta Green canopy at the market, sunflowers and pumpkins in the foreground."
+            priority
+          />
+        </figure>
+        <blockquote className="founder__quote">
+          <p>&ldquo;Growing food and sharing it changes lives.&rdquo;</p>
+          <cite>Beverly Grant, Founder</cite>
+          <p className="founder__note">
+            Born and raised in Northeast Park Hill, Miss Beverly built Mo&rsquo;Betta Green
+            to put good food back in the neighborhoods that lost it.
+          </p>
+        </blockquote>
       </section>
 
       <div className="wrap">
@@ -77,6 +112,49 @@ export default async function HomePage() {
           </section>
         )}
       </div>
+
+
+      <section className="pillars wrap" aria-label="What we do">
+        <ul className="pillars__list">
+          <li className="pillar pillar--red">
+            <span className="pillar__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 9h16l-1.3 10.2a2 2 0 0 1-2 1.8H7.3a2 2 0 0 1-2-1.8L4 9Z" />
+                <path d="M8.5 9V7a3.5 3.5 0 0 1 7 0v2" />
+              </svg>
+            </span>
+            <h2>The MarketPlace</h2>
+            <p>
+              A Black-owned farmers market bringing fresh, affordable food to Denver&rsquo;s
+              east side. SNAP and Double Up welcome at the table.
+            </p>
+          </li>
+          <li className="pillar pillar--green">
+            <span className="pillar__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 20.5s-7.5-4.4-7.5-9.4A4.1 4.1 0 0 1 12 8.4a4.1 4.1 0 0 1 7.5 2.7c0 5-7.5 9.4-7.5 9.4Z" />
+              </svg>
+            </span>
+            <h2>Wellness for All</h2>
+            <p>
+              Free cooking demos, nutrition education, and movement &mdash; yoga, Qi Gong,
+              Zumba, and dance &mdash; open to every body.
+            </p>
+          </li>
+          <li className="pillar pillar--brown">
+            <span className="pillar__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 21c0-6 3-9 9-10-1 6-4 9-9 10Zm0 0c0-6-3-9-9-10 1 6 4 9 9 10Zm0 0V9" />
+              </svg>
+            </span>
+            <h2>Seeds of Power Unity Farm</h2>
+            <p>
+              Urban growing sites across Cole, Uptown, and Northeast Park Hill &mdash; where
+              the produce and the next generation of farmers come up.
+            </p>
+          </li>
+        </ul>
+      </section>
 
       <section className="wrap section" aria-labelledby="upcoming">
         <div className="section__head">

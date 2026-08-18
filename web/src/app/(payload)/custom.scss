@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Admin panel, skinned to the Mo'Betta Green brand.
+
+   Payload builds its greys from a --color-base-* ramp, then maps
+   --theme-elevation-* through it (inverted for dark mode). Retinting the ramp
+   itself rather than patching individual components means every surface,
+   border, and input follows along, and dark mode keeps working.
+
+   --color-blue-* is Payload's accent — buttons, links, focus rings — so that
+   becomes the brand green.
+   ========================================================================== */
+
+/* Admin-only, behind auth: one cached request is a fair trade for matching the
+   front end's typography without a custom provider component. */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Neutral ramp, warmed toward the brand brown (#3f322b) so nothing reads as
+     flat digital grey next to the red and green. */
+  --color-base-0: #ffffff;
+  --color-base-50: #faf7f1;
+  --color-base-100: #f2ede3;
+  --color-base-150: #e9e2d5;
+  --color-base-200: #ded5c5;
+  --color-base-250: #d2c8b6;
+  --color-base-300: #c4b9a5;
+  --color-base-350: #b5a893;
+  --color-base-400: #a49682;
+  --color-base-450: #948671;
+  --color-base-500: #847661;
+  --color-base-550: #756853;
+  --color-base-600: #665a47;
+  --color-base-650: #584d3c;
+  --color-base-700: #4a4132;
+  --color-base-750: #3f372b;
+  --color-base-800: #362f25;
+  --color-base-850: #2c261e;
+  --color-base-900: #221d17;
+  --color-base-950: #171410;
+  --color-base-1000: #0d0b09;
+
+  /* Accent: brand green in place of Payload blue. */
+  --color-blue-50: #eefaf1;
+  --color-blue-100: #d7f2df;
+  --color-blue-150: #c0eacd;
+  --color-blue-200: #a8e2bb;
+  --color-blue-250: #90d9a8;
+  --color-blue-300: #79d196;
+  --color-blue-350: #61c983;
+  --color-blue-400: #4ac171;
+  --color-blue-450: #45be6b;
+  --color-blue-500: #3aad60;
+  --color-blue-550: #2e9a50;
+  --color-blue-600: #298a48;
+  --color-blue-650: #247940;
+  --color-blue-700: #1f6937;
+  --color-blue-750: #1a582f;
+  --color-blue-800: #154827;
+  --color-blue-850: #10371e;
+  --color-blue-900: #0b2716;
+  --color-blue-950: #06160d;
+
+  /* Destructive actions in the brand red, which already reads as a warning. */
+  --color-error-100: #fbdcd9;
+  --color-error-200: #f6b9b3;
+  --color-error-300: #f0968d;
+  --color-error-400: #eb7367;
+  --color-error-500: #e23b2e;
+  --color-error-600: #c22f24;
+  --color-error-700: #a1271e;
+  --color-error-800: #7f1e17;
+  --color-error-900: #5d1611;
+
+  --font-body:
+    'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+/* Paper rather than pure white, matching the front end. */
+[data-theme='light'] {
+  --theme-bg: #f7f3ea;
+  --theme-input-bg: #ffffff;
+}
+
+/* The admin's own wordmark, used on the login screen and nav. */
+.mbg-mark {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 0.86;
+  text-transform: uppercase;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.mbg-mark__rb {
+  font-size: 0.3em;
+  letter-spacing: 0.04em;
+  color: var(--theme-elevation-600);
+  margin-bottom: 0.15em;
+}
+.mbg-mark__mo {
+  font-size: 1em;
+  color: #e23b2e;
+  letter-spacing: -0.01em;
+}
+.mbg-mark__green {
+  font-size: 1.42em;
+  color: #45be6b;
+  letter-spacing: -0.02em;
+  margin-top: -0.04em;
+}
+.mbg-mark__mkt {
+  font-size: 0.3em;
+  letter-spacing: 0.16em;
+  color: var(--theme-elevation-600);
+  margin-top: 0.28em;
+}
+
+.mbg-mark--logo {
+  font-size: 3.4rem;
+}
+.mbg-mark--icon {
+  font-size: 1.05rem;
+}

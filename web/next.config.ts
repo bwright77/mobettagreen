@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
       {
         pathname: '/api/media/file/**',
       },
+      {
+        // Static brand assets committed under public/images
+        pathname: '/images/**',
+      },
     ],
   },
   webpack: (webpackConfig) => {

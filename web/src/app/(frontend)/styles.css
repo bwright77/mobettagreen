@@ -428,3 +428,193 @@ a.card:hover {
   text-transform: uppercase;
   color: var(--red);
 }
+
+/* ===== ported verbatim from the coming-soon page ===== */
+
+/* -------------------------------------------------------------- ribbon --
+   The torn brown strip from the banner, carrying the Integris Food line.    */
+
+.ribbon {
+  position: relative;
+  background: var(--brown);
+  padding: clamp(1.4rem, 3.5vw, 2rem) var(--pad);
+  margin: clamp(1rem, 3vw, 2rem) 0;
+}
+
+.ribbon::before,
+.ribbon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 14px;
+  background-repeat: repeat-x;
+  background-size: 240px 14px;
+}
+
+/* torn top edge */
+.ribbon::before {
+  top: -13px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='14' preserveAspectRatio='none'%3E%3Cpath d='M0 14 C 18 4, 34 12, 52 6 C 70 0, 88 10, 108 5 C 126 1, 146 11, 168 6 C 188 2, 206 12, 224 7 C 232 5, 236 9, 240 8 L240 14 Z' fill='%233F322B'/%3E%3C/svg%3E");
+}
+
+/* torn bottom edge */
+.ribbon::after {
+  bottom: -13px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='14' preserveAspectRatio='none'%3E%3Cpath d='M0 0 C 20 9, 38 2, 58 8 C 78 13, 96 3, 116 8 C 136 13, 154 3, 176 8 C 196 12, 212 3, 230 7 C 235 8, 238 6, 240 6 L240 0 Z' fill='%233F322B'/%3E%3C/svg%3E");
+}
+
+.ribbon__text {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  text-align: center;
+  font-family: var(--font-condensed);
+  font-size: clamp(0.95rem, 2.6vw, 1.5rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+.ribbon__text sup { font-size: 0.5em; }
+
+/* ------------------------------------------------------------- founder -- */
+
+.founder {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) var(--pad) clamp(2rem, 5vw, 3rem);
+  display: grid;
+  gap: clamp(1.75rem, 4vw, 3rem);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+@media (min-width: 52rem) {
+  .founder { grid-template-columns: 1.05fr 1fr; }
+}
+
+.founder__photo {
+  margin: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--paper-warm);
+  /* white banner-style border, like the market signage */
+  border: 8px solid var(--white);
+  box-shadow: 0 14px 32px rgba(63, 50, 43, 0.16);
+  transform: rotate(-1.2deg);
+}
+
+.founder__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.founder__quote { margin: 0; }
+
+.founder__quote > p:first-child {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 2.35rem);
+  line-height: 1.15;
+  margin: 0 0 0.85rem;
+  color: var(--brown);
+}
+
+.founder__quote cite {
+  display: block;
+  font-style: normal;
+  font-family: var(--font-condensed);
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.founder__note {
+  margin: 1.25rem 0 0;
+  color: var(--ink-muted);
+  max-width: 42ch;
+}
+
+/* ------------------------------------------------------------- pillars -- */
+
+.pillars {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--pad) clamp(2.5rem, 6vw, 4rem);
+}
+
+.pillars__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.pillar {
+  padding: 1.9rem 1.6rem;
+  border-radius: var(--radius);
+  background: var(--white);
+  border: 2px solid var(--rule);
+  border-bottom-width: 6px;
+  transition: transform 200ms ease, border-color 200ms ease;
+}
+.pillar:hover { transform: translateY(-4px); }
+
+.pillar--red    { border-bottom-color: var(--red); }
+.pillar--green  { border-bottom-color: var(--green); }
+.pillar--brown  { border-bottom-color: var(--brown); }
+
+.pillar__icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1.1rem;
+  border-radius: 12px;
+}
+.pillar--red   .pillar__icon { background: rgba(226, 59, 46, 0.12); }
+.pillar--green .pillar__icon { background: rgba(69, 190, 107, 0.16); }
+.pillar--brown .pillar__icon { background: rgba(63, 50, 43, 0.10); }
+
+.pillar__icon svg {
+  width: 26px; height: 26px;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pillar--red   .pillar__icon svg { stroke: var(--red); }
+.pillar--green .pillar__icon svg { stroke: var(--green-dark); }
+.pillar--brown .pillar__icon svg { stroke: var(--brown); }
+
+.pillar h2 {
+  font-size: 1.15rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.2;
+}
+
+.pillar p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--ink-muted);
+}
+
+
+/* hero scale, matching the coming-soon page */
+.hero .logo { font-size: clamp(2.1rem, 8.5vw, 4.6rem); margin-bottom: clamp(1.75rem, 5vw, 2.75rem); }
+.hero__title { font-size: clamp(2rem, 6.5vw, 3.9rem); max-width: 18ch; margin: 0 auto 1.25rem; color: var(--brown); }
+.hero__title span, .hero__title em { display: block; }
+.hero__title em { font-style: normal; color: var(--green-dark); }
+.hero__lede { max-width: 48ch; margin: 0 auto 2rem; font-size: clamp(1.05rem, 0.98rem + 0.45vw, 1.25rem); color: var(--ink-muted); }
+
+.site-footer__tag {
+  font-family: var(--font-anton), 'Arial Narrow', sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green-dark);
+  text-align: center;
+  margin: 0 0 1.5rem;
+}

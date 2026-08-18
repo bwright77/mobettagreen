@@ -23,6 +23,16 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    meta: {
+      titleSuffix: " — Mo'Betta Green",
+      icons: [{ rel: 'icon', type: 'image/svg+xml', url: '/favicon.svg' }],
+    },
+    components: {
+      graphics: {
+        Logo: '@/components/admin/Logo#Logo',
+        Icon: '@/components/admin/Icon#Icon',
+      },
+    },
   },
   collections: [Pages, Events, Registrations, Press, Partners, Producers, Media, Users],
   editor: lexicalEditor(),

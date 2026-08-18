@@ -4,6 +4,7 @@ export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="wrap">
+        <p className="site-footer__tag">One sip, one bite, one step at a time.</p>
         <div className="site-footer__grid">
           <div>
             <h2>Find the market</h2>
