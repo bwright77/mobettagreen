@@ -6,6 +6,9 @@ import React from 'react'
 import config from '@/payload.config'
 import { admissionLabel, whenLabel } from '@/lib/dates'
 import { Wordmark } from '@/components/Wordmark'
+import { TornBand } from '@/components/TornBand'
+import { TellingInitials } from '@/components/TellingInitials'
+import { PillarIcon } from '@/components/PillarIcon'
 
 // The market schedule changes; don't serve a stale "next market" from cache.
 export const dynamic = 'force-dynamic'
@@ -14,7 +17,8 @@ export default async function HomePage() {
   const payload = await getPayload({ config: await config })
   const now = new Date().toISOString()
 
-  const [markets, upcoming, press] = await Promise.all([
+  const [home, markets, upcoming, press] = await Promise.all([
+    payload.findGlobal({ slug: 'home', depth: 1 }),
     payload.find({
       collection: 'events',
       where: { and: [{ type: { equals: 'market' } }, { startsAt: { greater_than: now } }] },
@@ -43,6 +47,12 @@ export default async function HomePage() {
 
   const nextMarket = markets.docs[0]
 
+  const founderImage =
+    home?.founderImage && typeof home.founderImage === 'object'
+      ? (home.founderImage as { url?: string; width?: number; height?: number; alt?: string })
+      : null
+  const pillars = home?.pillars ?? []
+
   // Top up with the most recent coverage if fewer than three are featured.
   let pressDocs = press.docs
   if (pressDocs.length < 3) {
@@ -61,41 +71,34 @@ export default async function HomePage() {
       <section className="wrap hero">
         <Wordmark />
         <h1 className="hero__title">
-          <span>Something good</span>
-          <em>is growing.</em>
+          <span>{home?.heroLineOne}</span>
+          <em>{home?.heroLineTwo}</em>
         </h1>
-        <p className="hero__lede">
-          Fresh produce, free wellness classes, live music, and neighbors feeding
-          neighbors — across Denver&rsquo;s east side since 2010.
-        </p>
+        <p className="hero__lede">{home?.heroLede}</p>
       </section>
 
-      {/* Torn brown ribbon from the market banner. The line spells TOLD — Miss
-          Bev's rule for what food should be — so the initials are marked. */}
-      <div className="ribbon">
-        <p className="ribbon__text">
-          <b>T</b>raceable Origin, <b>O</b>rganic, <b>L</b>ocal, <b>D</b>elicious = Integris
-          Food<sup>&reg;</sup>
-        </p>
-      </div>
+      {/* The line spells TOLD — Miss Bev's rule for what food should be — so the
+          initials are marked, wherever the words are edited to. */}
+      <TornBand>
+        <TellingInitials text={home?.ribbonText ?? ''} />
+      </TornBand>
 
       <section className="founder wrap" aria-label="About the founder">
-        <figure className="founder__photo">
-          <Image
-            src="/images/miss-beverly.jpg"
-            width={972}
-            height={732}
-            alt="Beverly Grant waving beneath the red Mo'Betta Green canopy at the market, sunflowers and pumpkins in the foreground."
-            priority
-          />
-        </figure>
+        {founderImage?.url ? (
+          <figure className="founder__photo">
+            <Image
+              src={founderImage.url}
+              width={founderImage.width ?? 972}
+              height={founderImage.height ?? 732}
+              alt={founderImage.alt ?? ''}
+              priority
+            />
+          </figure>
+        ) : null}
         <blockquote className="founder__quote">
-          <p>&ldquo;Growing food and sharing it changes lives.&rdquo;</p>
-          <cite>Beverly Grant, Founder</cite>
-          <p className="founder__note">
-            Born and raised in Northeast Park Hill, Miss Beverly built Mo&rsquo;Betta Green
-            to put good food back in the neighborhoods that lost it.
-          </p>
+          <p>&ldquo;{home?.founderQuote}&rdquo;</p>
+          <cite>{home?.founderAttribution}</cite>
+          {home?.founderNote ? <p className="founder__note">{home.founderNote}</p> : null}
           <p className="founder__more">
             <Link href="/our-story">Read our story &rarr;</Link>
           </p>
@@ -139,48 +142,24 @@ export default async function HomePage() {
       </div>
 
 
-      <section className="pillars wrap" aria-label="What we do">
-        <ul className="pillars__list">
-          <li className="pillar pillar--red">
-            <span className="pillar__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M4 9h16l-1.3 10.2a2 2 0 0 1-2 1.8H7.3a2 2 0 0 1-2-1.8L4 9Z" />
-                <path d="M8.5 9V7a3.5 3.5 0 0 1 7 0v2" />
-              </svg>
-            </span>
-            <h2>The MarketPlace</h2>
-            <p>
-              A Black-owned farmers market bringing fresh, affordable food to Denver&rsquo;s
-              east side. SNAP and Double Up welcome at the table.
-            </p>
-          </li>
-          <li className="pillar pillar--green">
-            <span className="pillar__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M12 20.5s-7.5-4.4-7.5-9.4A4.1 4.1 0 0 1 12 8.4a4.1 4.1 0 0 1 7.5 2.7c0 5-7.5 9.4-7.5 9.4Z" />
-              </svg>
-            </span>
-            <h2>HEAL</h2>
-            <p>
-              <strong>Healthy Eating, Active Living.</strong> Free cooking demos, nutrition
-              education, and movement &mdash; yoga, Qi Gong, Zumba, and dance &mdash; open to
-              every body.
-            </p>
-          </li>
-          <li className="pillar pillar--brown">
-            <span className="pillar__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M12 21c0-6 3-9 9-10-1 6-4 9-9 10Zm0 0c0-6-3-9-9-10 1 6 4 9 9 10Zm0 0V9" />
-              </svg>
-            </span>
-            <h2>Seeds of Power Unity Farm</h2>
-            <p>
-              Urban growing sites across Cole, Uptown, and Northeast Park Hill &mdash; where
-              the produce and the next generation of farmers come up.
-            </p>
-          </li>
-        </ul>
-      </section>
+      {pillars.length > 0 ? (
+        <section className="pillars wrap" aria-label="What we do">
+          <ul className="pillars__list">
+            {pillars.map((pillar, i) => (
+              <li
+                key={pillar.id ?? i}
+                className={`pillar pillar--${['red', 'green', 'brown'][i % 3]}`}
+              >
+                <span className="pillar__icon" aria-hidden="true">
+                  <PillarIcon name={pillar.icon} />
+                </span>
+                <h2>{pillar.title}</h2>
+                <p>{pillar.body}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section className="wrap section" aria-labelledby="upcoming">
         <div className="section__head">

@@ -15,6 +15,7 @@ import { Press } from './collections/Press'
 import { Partners } from './collections/Partners'
 import { Producers } from './collections/Producers'
 import { Settings } from './globals/Settings'
+import { Home } from './globals/Home'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -38,7 +39,7 @@ export default buildConfig({
     },
   },
   collections: [Pages, Events, Registrations, Press, Partners, Producers, Media, Users],
-  globals: [Settings],
+  globals: [Home, Settings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

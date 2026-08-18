@@ -1,4 +1,3 @@
-import { RichText } from '@payloadcms/richtext-lexical/react'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 import React from 'react'
@@ -6,22 +5,29 @@ import React from 'react'
 import config from '@/payload.config'
 import { TornBand } from '@/components/TornBand'
 import { PressRow } from '@/components/PressRow'
-import { FigureSlot } from '@/components/FigureSlot'
+import { StorySections } from '@/components/StorySections'
 
 export const dynamic = 'force-dynamic'
-export const metadata = {
-  title: 'Our Story',
-  description:
-    "How Mo'Betta Green grew from one market in Five Points into a farm, free classes, and a city-recognised day — and what it has meant for Denver's east side.",
+
+export async function generateMetadata() {
+  const payload = await getPayload({ config: await config })
+  const found = await payload.find({
+    collection: 'pages',
+    where: { slug: { equals: 'our-story' } },
+    limit: 1,
+    depth: 0,
+  })
+  const page = found.docs[0]
+  return {
+    title: page?.title ?? 'Our Story',
+    description: page?.summary ?? undefined,
+  }
 }
 
 /**
- * Everything stated here is drawn from published coverage and linked back to it.
- * The impact figures are the exception: they aren't in the press, so the numbers
- * are left for Miss Bev to supply rather than estimated.
- *
- * Photographs sit beside the prose they belong to, so nothing needs a caption to
- * explain what it is.
+ * Every word here is editable in the admin under Pages → Our Story. The page is
+ * built from that entry's sections rather than hardcoded copy, so changing the
+ * text can't collapse the layout and nobody has to touch code to fix a typo.
  */
 export default async function OurStoryPage() {
   const payload = await getPayload({ config: await config })
@@ -42,23 +48,14 @@ export default async function OurStoryPage() {
     }),
   ])
   const page = found.docs[0]
+  const sections = page?.sections ?? []
 
   return (
     <>
       <article className="wrap section story">
-        <p className="eyebrow">Since 2010 · Five Points, Denver</p>
-        <h1 className="story__title">{page?.title ?? 'Rooted in Five Points'}</h1>
-
-        {page?.summary ? (
-          <p className="story__lede">{page.summary}</p>
-        ) : (
-          <p className="story__lede">
-            Beverly Grant grew up in Northeast Park Hill watching a thriving Black
-            neighborhood lose its grocery stores. In 2010 she started a farmers market to
-            put good food back, and it has since become a farm, a set of free classes, and
-            a place people come to be well.
-          </p>
-        )}
+        {page?.eyebrow ? <p className="eyebrow">{page.eyebrow}</p> : null}
+        <h1 className="story__title">{page?.title ?? 'Our Story'}</h1>
+        {page?.summary ? <p className="story__lede">{page.summary}</p> : null}
       </article>
 
       <TornBand>
@@ -67,103 +64,15 @@ export default async function OurStoryPage() {
       </TornBand>
 
       <div className="wrap section">
-        {page?.body ? (
-          <div className="story">
-            <RichText data={page.body} />
-          </div>
+        {sections.length > 0 ? (
+          <StorySections sections={sections} />
         ) : (
-          <>
-            <section className="story-pair">
-              <div className="story-pair__prose">
-                <h2>How it started</h2>
-                <p>
-                  Denver&rsquo;s east side went from a middle-class Black neighborhood to a
-                  food desert — a community without a grocery store. Miss Bev watched it
-                  happen from Northeast Park Hill in the 1970s, and in 2010 she started a
-                  traveling farmers market to change it, built on three principles: food
-                  literacy, environmental stewardship, and social responsibility.
-                </p>
-              </div>
-              <FigureSlot
-                tilt={1}
-                src="/images/sop_green_tomatoes_2018.jpg"
-                alt="Beverly Grant in a Mo'Betta Green T-shirt and straw hat, leaning on the tailgate of a red pickup loaded with crates of tomatoes."
-                want=""
-                ratio="1 / 1"
-              />
-            </section>
-
-            <section className="story-pair story-pair--flip">
-              <div className="story-pair__prose">
-                <h2>What it grew into</h2>
-                <p>
-                  A season of markets across the east side, from Five Points to Green
-                  Valley Ranch. Seeds of Power Unity Farm, growing on sites in Cole,
-                  Uptown, and Northeast Park Hill. Free cooking demos and nutrition
-                  education under HEAL — Healthy Eating, Active Living — alongside yoga,
-                  Qi Gong, Zumba, and dance. Community Farm Dinners, and a Juneteenth
-                  Freedom Celebration.
-                </p>
-                <p>
-                  It runs on two full-time staff and about fifteen volunteers, and it
-                  takes SNAP at the table.
-                </p>
-              </div>
-              <FigureSlot
-                tilt={4}
-                src="/images/greens-seeds.jpg"
-                alt="Two children running along a planted row at the farm, beans and greens either side, houses and evening sun beyond."
-                want=""
-                ratio="1 / 1"
-              />
-            </section>
-
-            <section className="story-pair">
-              <div className="story-pair__prose">
-                <h2>What compassion asks</h2>
-                <p>
-                  In 2018 Miss Bev&rsquo;s youngest son, Reese, was killed, weeks after he
-                  finished high school. Random Gestures of Compassion Day came out of that
-                  loss. It is held every July 20 — his birthday — carries his initials,
-                  and is proclaimed by the Denver Mayor&rsquo;s Office.
-                </p>
-                <p>
-                  The day asks for the thing Reese practiced: intentional kindness, and
-                  making a stranger a friend.{' '}
-                  <Link href="/rgc-day">More about RGC Day</Link>.
-                </p>
-              </div>
-              <FigureSlot
-                tilt={2}
-                src="/images/rgc_logo.jpeg"
-                alt="Random Gestures of Compassion — The Reese Grant-Cobb Legacy. An illustrated portrait of Reese beside the lettering."
-                want=""
-                ratio="1 / 1"
-              />
-            </section>
-
-            <section className="story-pair story-pair--flip">
-              <div className="story-pair__prose">
-                <h2>The measure of it</h2>
-                <div className="empty" style={{ textAlign: 'left' }}>
-                  <p>
-                    <strong>These numbers need to come from Miss Bev.</strong> Pounds of
-                    produce moved, SNAP dollars matched, households served, youth
-                    employed, free classes held — the press covers the mission but never
-                    the figures, so they live in her grant reports rather than anywhere
-                    public. Nothing is estimated here.
-                  </p>
-                </div>
-              </div>
-              <FigureSlot
-                tilt={5}
-                src="/images/sop_truck_produce.jpg"
-                alt="A grower in a straw hat lifting a crate of chard into the bed of a red pickup already loaded with kale and lettuce."
-                want=""
-                ratio="11 / 20"
-              />
-            </section>
-          </>
+          <div className="empty">
+            <p>
+              This page is waiting on content. Add sections in the admin under Pages &rarr;
+              Our Story.
+            </p>
+          </div>
         )}
       </div>
 

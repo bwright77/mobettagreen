@@ -100,9 +100,11 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
+    home: Home;
     settings: Setting;
   };
   globalsSelect: {
+    home: HomeSelect<false> | HomeSelect<true>;
     settings: SettingsSelect<false> | SettingsSelect<true>;
   };
   locale: null;
@@ -145,25 +147,46 @@ export interface Page {
    */
   slug?: string | null;
   /**
-   * Used in listings and link previews.
+   * Small line above the title.
+   */
+  eyebrow?: string | null;
+  /**
+   * The opening paragraph, and used in link previews.
    */
   summary?: string | null;
-  heroImage?: (number | null) | Media;
-  body?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  /**
+   * Each section is a heading and some text, with an optional photograph beside it. Sections alternate sides down the page.
+   */
+  sections?:
+    | {
+        heading: string;
+        body?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        image?: (number | null) | Media;
+        /**
+         * Shape of the photograph.
+         */
+        ratio?: ('4 / 3' | '3 / 2' | '1 / 1' | '3 / 4' | '11 / 20') | null;
+        /**
+         * How the photograph sits. Vary it.
+         */
+        tilt?: ('1' | '2' | '3' | '4' | '5') | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -486,9 +509,18 @@ export interface PayloadMigration {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  eyebrow?: T;
   summary?: T;
-  heroImage?: T;
-  body?: T;
+  sections?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        image?: T;
+        ratio?: T;
+        tilt?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -659,6 +691,43 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home".
+ */
+export interface Home {
+  id: number;
+  /**
+   * First line, in brown.
+   */
+  heroLineOne: string;
+  /**
+   * Second line, in green.
+   */
+  heroLineTwo: string;
+  heroLede: string;
+  /**
+   * The line in the torn brown strip. The initials of Traceable, Organic, Local and Delicious are highlighted automatically — they spell TOLD.
+   */
+  ribbonText: string;
+  founderQuote: string;
+  founderAttribution: string;
+  founderNote?: string | null;
+  founderImage?: (number | null) | Media;
+  /**
+   * The three cards under the market panel.
+   */
+  pillars?:
+    | {
+        title: string;
+        icon: 'basket' | 'heart' | 'sprout';
+        body: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "settings".
  */
 export interface Setting {
@@ -673,6 +742,31 @@ export interface Setting {
   vendorApplicationNote?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home_select".
+ */
+export interface HomeSelect<T extends boolean = true> {
+  heroLineOne?: T;
+  heroLineTwo?: T;
+  heroLede?: T;
+  ribbonText?: T;
+  founderQuote?: T;
+  founderAttribution?: T;
+  founderNote?: T;
+  founderImage?: T;
+  pillars?:
+    | T
+    | {
+        title?: T;
+        icon?: T;
+        body?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

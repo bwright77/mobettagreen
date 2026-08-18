@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="13" fill="#3F322B"/>
-  <path d="M33 47c0-12 7-19.5 18-21-1 12.5-7.5 19.5-18 21z" fill="#45BE6B"/>
-  <path d="M33 47c0-12-7-19.5-18-21 1 12.5 7.5 19.5 18 21z" fill="#2E9A50"/>
-  <path d="M33 49V32" stroke="#F7F3EA" stroke-width="3.5" stroke-linecap="round"/>
-  <circle cx="33" cy="20" r="9" fill="#E23B2E"/>
+  <rect width="64" height="64" rx="14" fill="#3F322B"/>
+  <text x="32" y="45" text-anchor="middle"
+        font-family="Archivo Black, Arial Black, Impact, sans-serif"
+        font-size="34" font-weight="900" letter-spacing="-1"
+        fill="#E23B2E">MO</text>
 </svg>
