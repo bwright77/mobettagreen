@@ -161,8 +161,9 @@ p {
 
 /* --------------------------------------------------------------- header -- */
 
+/* No rule under the nav — a hairline reads as a mistake and a heavy bar is
+   worse. Space does the separating. */
 .site-header {
-  border-bottom: 1px solid var(--rule);
   background: var(--paper);
 }
 .site-header__inner {
@@ -171,8 +172,8 @@ p {
   justify-content: space-between;
   gap: 1.5rem;
   flex-wrap: wrap;
-  padding-top: 1.1rem;
-  padding-bottom: 1.1rem;
+  padding-top: 1.35rem;
+  padding-bottom: 1.35rem;
 }
 .site-nav {
   display: flex;
@@ -207,7 +208,17 @@ p {
   gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   padding-top: clamp(2rem, 5vw, 3rem);
-  border-top: 2px solid var(--rule);
+}
+
+/* The torn edge from the banner divides the footer, in place of a hairline. */
+.find-us::before {
+  content: '';
+  display: block;
+  height: 14px;
+  margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
+  background-repeat: repeat-x;
+  background-size: 240px 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='14' preserveAspectRatio='none'%3E%3Cpath d='M0 14 C 18 4, 34 12, 52 6 C 70 0, 88 10, 108 5 C 126 1, 146 11, 168 6 C 188 2, 206 12, 224 7 C 232 5, 236 9, 240 8 L240 14 Z' fill='%233F322B'/%3E%3C/svg%3E");
 }
 
 .find-us__col h2 {
@@ -294,9 +305,21 @@ p {
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
-  padding-bottom: 0.85rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 2px solid var(--rule);
+  position: relative;
+  padding-bottom: 1rem;
+  margin-bottom: 1.75rem;
+}
+/* A short, heavy brand stroke reads as a decision. A full-width hairline reads
+   as a mistake, so headings are underscored rather than ruled. */
+.section__head::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 3.25rem;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--green);
 }
 .section__head h2 {
   font-size: clamp(1.4rem, 3.5vw, 2rem);
@@ -674,14 +697,16 @@ a.card:hover {
    year's heading. */
 
 .press-year {
+  display: inline-block;
   font-family: var(--font-condensed);
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--brown);
-  margin: clamp(2.75rem, 6vw, 4rem) 0 0;
-  padding-bottom: 0.8rem;
-  border-bottom: 2px solid var(--rule);
+  color: var(--paper);
+  background: var(--brown);
+  padding: 0.35rem 0.9rem 0.3rem;
+  border-radius: 4px;
+  margin: clamp(2.75rem, 6vw, 4rem) 0 1.25rem;
 }
 .press-year:first-of-type {
   margin-top: 0;
@@ -693,22 +718,23 @@ a.card:hover {
   padding: 0;
 }
 
-.press-item + .press-item {
-  border-top: 1px solid var(--rule-soft);
-}
+/* No dividers between rows — the images anchor each entry and the spacing
+   separates them. */
 
 .press-item a {
   display: grid;
   gap: 1.1rem;
   grid-template-columns: 1fr;
   align-items: start;
-  padding: 1.85rem 0;
+  padding: 0 0 1.9rem;
   text-decoration: none;
 }
 @media (min-width: 40rem) {
   .press-item a {
-    grid-template-columns: 15rem 1fr;
-    gap: 2rem;
+    /* Narrower than the text column so the image sets a modest row height —
+       at 15rem the picture was taller than most entries and left a hole. */
+    grid-template-columns: 11.5rem 1fr;
+    gap: 1.75rem;
   }
 }
 .press-item a:hover .press-item__title {
@@ -788,4 +814,62 @@ a.card:hover {
 .pillar p strong {
   color: var(--brown);
   font-weight: 700;
+}
+
+/* --------------------------------------------------- press cards (home) -- */
+
+.card--press {
+  padding: 0;
+  overflow: hidden;
+}
+.card--press .card__meta,
+.card--press h3,
+.card--press .card__byline {
+  padding-left: 1.4rem;
+  padding-right: 1.4rem;
+}
+.card--press .card__tag {
+  padding: 0.9rem 1.4rem 1.4rem;
+}
+
+.card__figure {
+  margin: 0 0 1.1rem;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--paper-warm);
+  border-bottom: 1px solid var(--rule);
+}
+.card__figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Same upward bias as the press list — centred crops cut off heads. */
+  object-position: 50% 28%;
+  display: block;
+}
+.card__figure--none {
+  display: grid;
+  place-items: center;
+  font-family: var(--font-condensed);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  opacity: 0.5;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.card__byline {
+  margin: 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
+
+/* The header form needs more room than the single-line TOLD strip. */
+.ribbon:has(.ribbon__head) {
+  padding-top: clamp(2rem, 5vw, 3rem);
+  padding-bottom: clamp(2rem, 5vw, 3rem);
 }

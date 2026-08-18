@@ -29,12 +29,32 @@ export default async function HomePage() {
       limit: 6,
       depth: 0,
     }),
-    // Featured first, then newest. Undated items sort ahead of dated ones on their
-    // own, so featured is what keeps the strongest coverage at the top.
-    payload.find({ collection: 'press', sort: ['-featured', '-publishedAt'], limit: 3, depth: 0 }),
+    // Featured coverage, newest first. Sorting on ['-featured', '-publishedAt']
+    // silently ignored the first key and fell back to pure recency, which
+    // surfaced two near-identical items — so pick featured explicitly.
+    payload.find({
+      collection: 'press',
+      where: { featured: { equals: true } },
+      sort: '-publishedAt',
+      limit: 3,
+      depth: 1,
+    }),
   ])
 
   const nextMarket = markets.docs[0]
+
+  // Top up with the most recent coverage if fewer than three are featured.
+  let pressDocs = press.docs
+  if (pressDocs.length < 3) {
+    const recent = await payload.find({
+      collection: 'press',
+      where: { featured: { not_equals: true } },
+      sort: '-publishedAt',
+      limit: 3 - pressDocs.length,
+      depth: 1,
+    })
+    pressDocs = [...pressDocs, ...recent.docs]
+  }
 
   return (
     <>
@@ -186,7 +206,7 @@ export default async function HomePage() {
         )}
       </section>
 
-      {press.docs.length > 0 ? (
+      {pressDocs.length > 0 ? (
         <section className="wrap section" aria-labelledby="press">
           <div className="section__head">
             <h2 id="press">In the press</h2>
@@ -195,16 +215,35 @@ export default async function HomePage() {
             </Link>
           </div>
           <ul className="card-grid">
-            {press.docs.map((item) => (
-              <li key={item.id}>
-                <a className="card" href={item.url} target="_blank" rel="noopener noreferrer">
-                  <p className="card__meta">{item.outlet}</p>
-                  <h3>{item.title}</h3>
-                  {item.excerpt ? <p>{item.excerpt}</p> : null}
-                  <span className="card__tag">Read the story &rarr;</span>
-                </a>
-              </li>
-            ))}
+            {pressDocs.map((item) => {
+              const uploaded =
+                item.image && typeof item.image === 'object' ? item.image.url : undefined
+              const src = uploaded ?? item.imageUrl
+              return (
+                <li key={item.id}>
+                  <a className="card card--press" href={item.url} target="_blank" rel="noopener noreferrer">
+                    {src ? (
+                      <figure className="card__figure">
+                        {/* The outlet's own lead image, hotlinked rather than copied. */}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={src}
+                          alt={`${item.outlet}: ${item.title}`}
+                          loading="lazy"
+                          referrerPolicy="no-referrer"
+                        />
+                      </figure>
+                    ) : (
+                      <figure className="card__figure card__figure--none">{item.outlet}</figure>
+                    )}
+                    <p className="card__meta">{item.outlet}</p>
+                    <h3>{item.title}</h3>
+                    {item.byline ? <p className="card__byline">By {item.byline}</p> : null}
+                    <span className="card__tag">Read the story &rarr;</span>
+                  </a>
+                </li>
+              )
+            })}
           </ul>
         </section>
       ) : null}
