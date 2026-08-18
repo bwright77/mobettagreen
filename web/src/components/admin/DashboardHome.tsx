@@ -95,9 +95,11 @@ export async function DashboardHome({ payload, user }: ServerProps) {
     depth: 1,
   })
 
-  // Users authenticate by email only — no name field — so greet by the local
-  // part of the address (bev@… → "bev").
-  const firstName = typeof user?.email === 'string' ? user.email.split('@')[0] : 'there'
+  // Greet by first name once the profile has one; until then fall back to the
+  // local part of the email (bev@… → "bev").
+  const firstName =
+    (typeof user?.firstName === 'string' && user.firstName.trim()) ||
+    (typeof user?.email === 'string' ? user.email.split('@')[0] : 'there')
 
   return (
     <div className="mbg-dash">

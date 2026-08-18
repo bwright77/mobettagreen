@@ -21,6 +21,9 @@ export function AdminAvatar() {
   const menuRef = useRef<HTMLDivElement>(null)
 
   const email = typeof user?.email === 'string' ? user.email : ''
+  const fullName = [user?.firstName, user?.lastName]
+    .filter((part): part is string => typeof part === 'string' && part.trim().length > 0)
+    .join(' ')
 
   const place = useCallback(() => {
     const el = triggerRef.current
@@ -107,7 +110,12 @@ export function AdminAvatar() {
               ref={menuRef}
               style={{ top: coords.top, right: coords.right }}
             >
-                {email ? <p className="mbg-menu__who">{email}</p> : null}
+                {fullName || email ? (
+                  <p className="mbg-menu__who">
+                    {fullName ? <span className="mbg-menu__name">{fullName}</span> : null}
+                    {email ? <span className="mbg-menu__email">{email}</span> : null}
+                  </p>
+                ) : null}
                 <Link className="mbg-menu__item" role="menuitem" href="/admin/account">
                   Account settings
                 </Link>

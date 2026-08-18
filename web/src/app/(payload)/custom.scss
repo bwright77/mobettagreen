@@ -174,10 +174,19 @@
 .mbg-menu__who {
   margin: 0;
   padding: 0.5rem 0.7rem 0.6rem;
-  font-size: 0.78rem;
-  color: var(--theme-elevation-600, #665a47);
   border-bottom: 1px solid var(--theme-elevation-100, rgba(63, 50, 43, 0.1));
   overflow-wrap: anywhere;
+}
+.mbg-menu__name {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--theme-elevation-800, #362f25);
+}
+.mbg-menu__email {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--theme-elevation-600, #665a47);
 }
 .mbg-menu__item {
   display: block;
