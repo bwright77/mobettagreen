@@ -896,3 +896,12 @@ a.card:hover {
   color: var(--green);
   white-space: nowrap;
 }
+
+/* Nav lockup: just the two words, tightened up. */
+.logo--compact {
+  align-items: flex-start;
+  line-height: 0.82;
+}
+.logo--compact .logo__green {
+  margin-top: -0.02em;
+}

@@ -15,8 +15,8 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="wrap site-header__inner">
-        <Link href="/" style={{ fontSize: '1.15rem', textDecoration: 'none' }}>
-          <Wordmark />
+        <Link href="/" style={{ fontSize: '1.4rem', textDecoration: 'none' }}>
+          <Wordmark compact />
           <span className="visually-hidden">R&apos;s Mo&apos;Betta Green MarketPlace — home</span>
         </Link>
         <nav className="site-nav" aria-label="Main">
