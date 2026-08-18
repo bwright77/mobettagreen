@@ -64,6 +64,22 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
+    /**
+     * Migration-driven, no auto-push in any environment.
+     *
+     * Dev and prod share one database right now, and dev push can't coexist
+     * with prod migrations on the same DB — push keeps re-marking it as "dev
+     * mode", which makes `payload migrate` refuse to run without a data-loss
+     * prompt. Turning push off makes the schema change through migrations only,
+     * the same way in every environment, which also ends the surprise auto-push
+     * schema edits we hit while iterating.
+     *
+     * Workflow for a schema change: edit the config, then
+     *   npm run migrate:create <name>   # generates a migration from the diff
+     *   npm run migrate                 # applies it locally
+     * and the deploy build runs `payload migrate` to apply it in production.
+     */
+    push: false,
     pool: {
       connectionString: process.env.DATABASE_URL || '',
       /**
