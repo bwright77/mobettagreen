@@ -4,6 +4,7 @@ import React from 'react'
 
 import config from '@/payload.config'
 import { TornBand } from '@/components/TornBand'
+import { FigureSlot } from '@/components/FigureSlot'
 
 export const dynamic = 'force-dynamic'
 export const metadata = {
@@ -29,7 +30,6 @@ export default async function RgcDayPage() {
         <h1 className="story__title">
           {page?.title ?? 'Random Gestures of Compassion Day'}
         </h1>
-        {page?.summary ? <p className="story__lede">{page.summary}</p> : null}
       </article>
 
       {/* Torn out of the page because it is the reason the day exists. */}
@@ -40,20 +40,39 @@ export default async function RgcDayPage() {
         </blockquote>
       </TornBand>
 
-      <article className="wrap section story">
+      <div className="wrap section">
+        <section className="story-pair">
+          <div className="story-pair__prose">
+            {page?.summary ? <p className="story__lede">{page.summary}</p> : null}
+          </div>
+          <FigureSlot
+                tilt={3}
+            want="RGC Day itself — the July 20 gathering. Food being shared, music, yoga, people meeting each other. The widest, warmest frame available."
+            ratio="3 / 2"
+          />
+        </section>
 
-      {page?.body ? (
-        <RichText data={page.body} />
-      ) : (
-        <div className="empty" style={{ textAlign: 'left' }}>
-          <p>
-            The rest of this page is waiting on Miss Bev&rsquo;s words — Reese&rsquo;s
-            story, and what the day asks of people, belong in her voice. Edit it in the
-            admin under Pages &rarr; RGC Day.
-          </p>
-        </div>
-        )}
-      </article>
+        <section className="story-pair story-pair--flip">
+          <div className="story-pair__prose">
+            {page?.body ? (
+              <RichText data={page.body} />
+            ) : (
+              <div className="empty" style={{ textAlign: 'left' }}>
+                <p>
+                  The rest of this page is waiting on Miss Bev&rsquo;s words —
+                  Reese&rsquo;s story, and what the day asks of people, belong in her
+                  voice. Edit it in the admin under Pages &rarr; RGC Day.
+                </p>
+              </div>
+            )}
+          </div>
+          <FigureSlot
+                tilt={2}
+            want="Reese. Portrait. Only if Miss Bev wants him pictured here — entirely her decision, and the page stands without it. If she would rather not, a photograph of the proclamation from the Mayor's Office works in its place."
+            ratio="4 / 5"
+          />
+        </section>
+      </div>
     </>
   )
 }

@@ -6,6 +6,7 @@ import React from 'react'
 import config from '@/payload.config'
 import { TornBand } from '@/components/TornBand'
 import { PressRow } from '@/components/PressRow'
+import { FigureSlot } from '@/components/FigureSlot'
 
 export const dynamic = 'force-dynamic'
 export const metadata = {
@@ -18,6 +19,9 @@ export const metadata = {
  * Everything stated here is drawn from published coverage and linked back to it.
  * The impact figures are the exception: they aren't in the press, so the numbers
  * are left for Miss Bev to supply rather than estimated.
+ *
+ * Photographs sit beside the prose they belong to, so nothing needs a caption to
+ * explain what it is.
  */
 export default async function OurStoryPage() {
   const payload = await getPayload({ config: await config })
@@ -62,62 +66,96 @@ export default async function OurStoryPage() {
         Food<sup>&reg;</sup>
       </TornBand>
 
-      <div className="wrap section story">
+      <div className="wrap section">
         {page?.body ? (
-          <RichText data={page.body} />
+          <div className="story">
+            <RichText data={page.body} />
+          </div>
         ) : (
           <>
-            <section className="story__block">
-              <h2>How it started</h2>
-              <p>
-                Denver&rsquo;s east side went from a middle-class Black neighbourhood to a
-                food desert — a community without a grocery store. Miss Bev watched it
-                happen from Northeast Park Hill in the 1970s, and in 2010 she started a
-                travelling farmers market to change it, built on three principles: food
-                literacy, environmental stewardship, and social responsibility.
-              </p>
-            </section>
-
-            <section className="story__block">
-              <h2>What it grew into</h2>
-              <p>
-                A season of markets across the east side, from Five Points to Green Valley
-                Ranch. Seeds of Power Unity Farm, growing on sites in Cole, Uptown, and
-                Northeast Park Hill. Free cooking demos and nutrition education under HEAL
-                — Healthy Eating, Active Living — alongside yoga, Qi Gong, Zumba, and
-                dance. Community Farm Dinners, and a Juneteenth Freedom Celebration.
-              </p>
-              <p>
-                It runs on two full-time staff and about fifteen volunteers, and it takes
-                SNAP at the table.
-              </p>
-            </section>
-
-            <section className="story__block">
-              <h2>What compassion asks</h2>
-              <p>
-                In 2018 Miss Bev&rsquo;s youngest son, Reese, was killed, weeks after he
-                finished high school. Random Gestures of Compassion Day came out of that
-                loss. It is held every July 20 — his birthday — carries his initials,
-                and is proclaimed by the Denver Mayor&rsquo;s Office.
-              </p>
-              <p>
-                The day asks for the thing Reese practiced: intentional kindness, and
-                making a stranger a friend. <Link href="/rgc-day">More about RGC Day</Link>.
-              </p>
-            </section>
-
-            <section className="story__block">
-              <h2>The measure of it</h2>
-              <div className="empty" style={{ textAlign: 'left' }}>
+            <section className="story-pair">
+              <div className="story-pair__prose">
+                <h2>How it started</h2>
                 <p>
-                  <strong>These numbers need to come from Miss Bev.</strong> Pounds of
-                  produce moved, SNAP dollars matched, households served, youth employed,
-                  free classes held — the press covers the mission but never the figures,
-                  so they live in her grant reports rather than anywhere public. Nothing is
-                  estimated here.
+                  Denver&rsquo;s east side went from a middle-class Black neighborhood to a
+                  food desert — a community without a grocery store. Miss Bev watched it
+                  happen from Northeast Park Hill in the 1970s, and in 2010 she started a
+                  traveling farmers market to change it, built on three principles: food
+                  literacy, environmental stewardship, and social responsibility.
                 </p>
               </div>
+              <FigureSlot
+                tilt={1}
+                src="/images/miss-beverly.jpg"
+                alt="Beverly Grant beneath the red Mo'Betta Green canopy at the market, sunflowers and pumpkins in the foreground."
+                want=""
+                ratio="4 / 3"
+              />
+            </section>
+
+            <section className="story-pair story-pair--flip">
+              <div className="story-pair__prose">
+                <h2>What it grew into</h2>
+                <p>
+                  A season of markets across the east side, from Five Points to Green
+                  Valley Ranch. Seeds of Power Unity Farm, growing on sites in Cole,
+                  Uptown, and Northeast Park Hill. Free cooking demos and nutrition
+                  education under HEAL — Healthy Eating, Active Living — alongside yoga,
+                  Qi Gong, Zumba, and dance. Community Farm Dinners, and a Juneteenth
+                  Freedom Celebration.
+                </p>
+                <p>
+                  It runs on two full-time staff and about fifteen volunteers, and it
+                  takes SNAP at the table.
+                </p>
+              </div>
+              <FigureSlot
+                tilt={4}
+                want="Seeds of Power Unity Farm — a growing site in Cole, Uptown or Northeast Park Hill, ideally with people working it rather than just beds. A cooking demo or movement class in progress also works. Portrait or square suits this one."
+                ratio="1 / 1"
+              />
+            </section>
+
+            <section className="story-pair">
+              <div className="story-pair__prose">
+                <h2>What compassion asks</h2>
+                <p>
+                  In 2018 Miss Bev&rsquo;s youngest son, Reese, was killed, weeks after he
+                  finished high school. Random Gestures of Compassion Day came out of that
+                  loss. It is held every July 20 — his birthday — carries his initials,
+                  and is proclaimed by the Denver Mayor&rsquo;s Office.
+                </p>
+                <p>
+                  The day asks for the thing Reese practiced: intentional kindness, and
+                  making a stranger a friend.{' '}
+                  <Link href="/rgc-day">More about RGC Day</Link>.
+                </p>
+              </div>
+              <FigureSlot
+                tilt={2}
+                want="RGC Day — the July 20 gathering. Food, music, yoga, people together. Portrait works well here. Ask Miss Bev whether she wants Reese pictured; that is entirely her call, and the page works without it."
+                ratio="3 / 4"
+              />
+            </section>
+
+            <section className="story-pair story-pair--flip">
+              <div className="story-pair__prose">
+                <h2>The measure of it</h2>
+                <div className="empty" style={{ textAlign: 'left' }}>
+                  <p>
+                    <strong>These numbers need to come from Miss Bev.</strong> Pounds of
+                    produce moved, SNAP dollars matched, households served, youth
+                    employed, free classes held — the press covers the mission but never
+                    the figures, so they live in her grant reports rather than anywhere
+                    public. Nothing is estimated here.
+                  </p>
+                </div>
+              </div>
+              <FigureSlot
+                tilt={5}
+                want="The market doing the work — the SNAP or Double Up table, produce changing hands, a full stall on a busy day. Landscape. This one carries the impact section, so it wants people in it."
+                ratio="3 / 2"
+              />
             </section>
           </>
         )}
