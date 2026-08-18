@@ -14,7 +14,7 @@ import { createPortal } from 'react-dom'
  * and the menu is portalled to the body, positioned under the avatar.
  */
 export function AdminAvatar() {
-  const { user, logOut } = useAuth()
+  const { user } = useAuth()
   const [open, setOpen] = useState(false)
   const [coords, setCoords] = useState<{ top: number; right: number } | null>(null)
   const triggerRef = useRef<HTMLSpanElement>(null)
@@ -111,17 +111,17 @@ export function AdminAvatar() {
                 <Link className="mbg-menu__item" role="menuitem" href="/admin/account">
                   Account settings
                 </Link>
-                <button
+                {/* Route through Payload's own logout page rather than calling
+                    logOut() — that cleared the session but left the browser on
+                    the admin page. This clears the cookie and lands on login. */}
+                <Link
                   className="mbg-menu__item mbg-menu__item--danger"
                   role="menuitem"
-                  type="button"
-                  onClick={() => {
-                    setOpen(false)
-                    void logOut()
-                  }}
+                  href="/admin/logout"
+                  onClick={() => setOpen(false)}
                 >
                   Log out
-              </button>
+                </Link>
             </div>,
             document.body,
           )
