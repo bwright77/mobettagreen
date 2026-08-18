@@ -56,7 +56,14 @@ html {
 
 body {
   margin: 0;
-  background: var(--paper);
+  /* Ported from the coming-soon page: soft green and red washes behind the
+     hero. Sized in viewport units so they stay a top-of-page glow rather than
+     stretching down the full document the way the original percentages would. */
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(70vw 60vh at 8% 0, rgba(69, 190, 107, 0.16) 0%, transparent 65%),
+    radial-gradient(65vw 55vh at 96% 0, rgba(226, 59, 46, 0.14) 0%, transparent 62%);
+  background-repeat: no-repeat;
   color: var(--ink);
   font-family: var(--font-archivo), -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
     Arial, sans-serif;
@@ -168,7 +175,10 @@ p {
 /* No rule under the nav — a hairline reads as a mistake and a heavy bar is
    worse. Space does the separating. */
 .site-header {
-  background: var(--paper);
+  /* Transparent, not paper — the header sits in flow at the top of the page,
+     so letting the body's hero wash show through the nav is what gives the top
+     of the page the same glow the coming-soon page had. */
+  background: transparent;
 }
 .site-header__inner {
   display: flex;
@@ -383,7 +393,12 @@ p {
   text-align: center;
 }
 .hero__eyebrow {
-  margin-bottom: 1.25rem;
+  /* Match the coming-soon eyebrow's presence — larger and wider-tracked than
+     the small section eyebrows elsewhere. Anton is single-weight, so size and
+     tracking carry the weight. */
+  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+  letter-spacing: 0.24em;
+  margin-bottom: 1.5rem;
 }
 .hero .logo {
   font-size: clamp(2rem, 8vw, 4.2rem);
