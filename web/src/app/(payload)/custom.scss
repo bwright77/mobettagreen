@@ -122,3 +122,69 @@
 .mbg-mark--icon {
   font-size: 1.05rem;
 }
+
+/* ---------------------------------------------------------- login screen -- */
+/* Payload's minimal template spans the viewport, which leaves the form sprawling
+   and the mark stranded above it. Contain it, sit it on paper, and give the
+   wordmark a sensible size relative to the fields. */
+
+.login.template-minimal {
+  background: #f7f3ea;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1.25rem;
+}
+
+.template-minimal__wrap {
+  width: 100%;
+  max-width: 26rem;
+  background: #ffffff;
+  border: 1px solid rgba(63, 50, 43, 0.12);
+  border-bottom: 6px solid #45be6b;
+  border-radius: 14px;
+  padding: clamp(1.75rem, 5vw, 2.5rem);
+  box-shadow: 0 18px 44px rgba(63, 50, 43, 0.1);
+}
+
+.login__brand {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+/* Sized to the card rather than the viewport. */
+.login__brand .mbg-mark--logo {
+  font-size: 1.9rem;
+  align-items: center;
+}
+.login__brand .mbg-mark__mkt,
+.login__brand .mbg-mark__rb {
+  align-self: center;
+}
+
+.login__form__inputWrap {
+  display: grid;
+  gap: 0.35rem;
+}
+
+/* The forgotten-password link sits loose between the fields and the button. */
+.login__form > a {
+  display: inline-block;
+  margin: 0.35rem 0 1.5rem;
+  font-size: 0.88rem;
+  color: #2e9a50;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.login__form > a:hover {
+  color: #3f322b;
+}
+
+.login__form .form-submit {
+  margin: 0;
+}
+.login__form .form-submit .btn {
+  width: 100%;
+  justify-content: center;
+  margin: 0;
+}
