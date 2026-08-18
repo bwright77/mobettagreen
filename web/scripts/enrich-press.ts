@@ -63,10 +63,38 @@ function scrape(html: string) {
   }
 }
 
+/** Some outlets put the publisher in the author meta. That isn't a byline. */
+const NOT_A_BYLINE = [/elevated,?\s*inc/i, /^5280$/i, /editorial\s*staff/i, /^staff$/i, /^admin$/i]
+const realByline = (v?: string) => (v && !NOT_A_BYLINE.some((re) => re.test(v)) ? v : undefined)
+
+/** Outlets that refuse our requests; supplied from the article itself. */
+const MANUAL: Record<string, { byline?: string; publishedAt?: string }> = {
+  'https://www.nytimes.com/2020/07/27/style/black-yoga-collectives.html': {
+    byline: 'Chandra Thomas Whitfield',
+    publishedAt: '2020-07-27',
+  },
+  'https://coloradonewsline.com/2020/07/30/move-to-diversify-yoga-to-heal-racialized-trauma-part-of-denver-co-ops-mission/': {
+    byline: 'Chandra Thomas Whitfield',
+    publishedAt: '2020-07-30',
+  },
+}
+
 const payload = await getPayload({ config })
 const all = await payload.find({ collection: 'press', limit: 200, depth: 0 })
 
 for (const item of all.docs) {
+  const manual = MANUAL[item.url]
+  if (manual) {
+    const patch: Record<string, unknown> = {}
+    if (!item.byline && manual.byline) patch.byline = manual.byline
+    if (!item.publishedAt && manual.publishedAt) patch.publishedAt = manual.publishedAt
+    console.log(`  ${item.outlet.padEnd(28)} manual  |  by ${manual.byline}`)
+    if (WRITE && Object.keys(patch).length > 0) {
+      await payload.update({ collection: 'press', id: item.id, data: patch })
+    }
+    continue
+  }
+
   let html = ''
   try {
     const res = await fetch(item.url, { headers: { 'user-agent': UA }, redirect: 'follow' })
@@ -81,6 +109,7 @@ for (const item of all.docs) {
   }
 
   const found = scrape(html)
+  found.byline = realByline(found.byline)
   // Only fill blanks — anything set by hand stays.
   const patch: Record<string, unknown> = {}
   if (!item.imageUrl && found.imageUrl) patch.imageUrl = found.imageUrl

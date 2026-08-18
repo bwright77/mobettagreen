@@ -23,6 +23,16 @@
   --wrap: 72rem;
   --pad: clamp(1.25rem, 5vw, 3.5rem);
   --radius: 16px;
+
+  /* The coming-soon stylesheet names its faces --font-display / --font-condensed
+     / --font-body. next/font supplies --font-archivo-black / --font-anton /
+     --font-archivo. Aliasing here means CSS ported from that page works exactly
+     as written instead of silently falling back to the body face. */
+  --font-display: var(--font-archivo-black), 'Arial Black', Impact, sans-serif;
+  --font-condensed: var(--font-anton), 'Arial Narrow', sans-serif;
+  --font-body:
+    var(--font-archivo), -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+    sans-serif;
 }
 
 * {
@@ -186,6 +196,9 @@ p {
 .find-us {
   max-width: var(--wrap);
   margin: 0 auto;
+  /* On the coming-soon page the section above supplied this gap; here the page
+     content ends flush, so the footer has to open its own space. */
+  margin-top: clamp(2.5rem, 6vw, 4rem);
   padding: 0 var(--pad) clamp(2.5rem, 6vw, 4rem);
 }
 
@@ -653,3 +666,104 @@ a.card:hover {
 .hero__title em { font-style: normal; color: var(--green-dark); }
 .hero__lede { max-width: 48ch; margin: 0 auto 2rem; font-size: clamp(1.05rem, 0.98rem + 0.45vw, 1.25rem); color: var(--ink-muted); }
 
+
+/* ---------------------------------------------------------- press list -- */
+
+.press-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 2px solid var(--rule);
+}
+
+.press-item a {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+  align-items: start;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+}
+@media (min-width: 40rem) {
+  .press-item a {
+    grid-template-columns: 13.5rem 1fr;
+    gap: 1.75rem;
+  }
+}
+.press-item a:hover .press-item__title {
+  text-decoration: underline;
+  text-decoration-color: var(--green);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 3px;
+}
+
+.press-item__figure {
+  margin: 0;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--paper-warm);
+  border: 1px solid var(--rule);
+}
+.press-item__figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Outlets that block us leave no image; keep the row aligned rather than
+   collapsing the column and breaking the rhythm down the page. */
+.press-item__figure--none {
+  display: grid;
+  place-items: center;
+  font-family: var(--font-anton), 'Arial Narrow', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  opacity: 0.55;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.press-item__meta {
+  font-family: var(--font-anton), 'Arial Narrow', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin: 0 0 0.45rem;
+}
+.press-item__title {
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  margin-bottom: 0.5rem;
+}
+.press-item__excerpt {
+  margin: 0 0 0.5rem;
+  color: var(--ink-muted);
+  max-width: 62ch;
+}
+.press-item__byline {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
+.press-year {
+  font-family: var(--font-anton), 'Arial Narrow', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brown);
+  margin: 2.25rem 0 0.5rem;
+  padding-top: 1.25rem;
+  border-top: 2px solid var(--rule);
+}
+.press-year:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
