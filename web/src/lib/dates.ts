@@ -35,3 +35,25 @@ export function admissionLabel(event: {
   if (event.signup === 'none') return `${cost} · open to all`
   return event.capacity ? `${cost} · limited seats` : `${cost} · sign up`
 }
+
+/** "August 2026" — used to group a calendar by month. */
+export const monthLabel = (iso: string) =>
+  fmt({ month: 'long', year: 'numeric' }).format(new Date(iso))
+
+/** "Sat" */
+export const weekdayShort = (iso: string) =>
+  fmt({ weekday: 'short' }).format(new Date(iso))
+
+/** "22" */
+export const dayNumber = (iso: string) => fmt({ day: 'numeric' }).format(new Date(iso))
+
+/** "10am – 2pm", lowercased because the meridiem shouts otherwise. */
+export function timeRange(startsAt: string, endsAt?: string | null): string {
+  const t = (iso: string) =>
+    fmt({ hour: 'numeric', minute: '2-digit' })
+      .format(new Date(iso))
+      .replace(':00', '')
+      .replace(' AM', 'am')
+      .replace(' PM', 'pm')
+  return endsAt ? `${t(startsAt)} – ${t(endsAt)}` : t(startsAt)
+}

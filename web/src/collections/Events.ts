@@ -42,8 +42,10 @@ export const Events: CollectionConfig = {
       options: [
         { label: 'Market day', value: 'market' },
         { label: 'Class', value: 'class' },
-        { label: 'Farm dinner', value: 'dinner' },
-        { label: 'Annual celebration', value: 'annual' },
+        { label: 'Community dinner', value: 'dinner' },
+        { label: 'RGC Day', value: 'rgc' },
+        { label: 'Juneteenth', value: 'juneteenth' },
+        { label: 'Celebration', value: 'celebration' },
         { label: 'Other', value: 'other' },
       ],
     },

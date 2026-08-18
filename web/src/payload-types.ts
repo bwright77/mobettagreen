@@ -197,7 +197,7 @@ export interface Event {
    * Leave blank to generate from the title.
    */
   slug?: string | null;
-  type: 'market' | 'class' | 'dinner' | 'annual' | 'other';
+  type: 'market' | 'class' | 'dinner' | 'rgc' | 'juneteenth' | 'celebration' | 'other';
   startsAt: string;
   endsAt?: string | null;
   /**

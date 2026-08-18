@@ -1138,20 +1138,269 @@ main > :first-child:not(.hero) {
 
 /* ------------------------------------------------------------- vendors -- */
 
+/* Full width, matching the calendar rows above it rather than sitting in a
+   narrow box against the left edge. */
 .vend {
   margin-top: clamp(3rem, 7vw, 4.5rem);
-  padding: clamp(1.75rem, 4vw, 2.5rem);
+  padding: clamp(1.75rem, 4vw, 2.75rem);
   border-radius: calc(var(--radius) + 4px);
   background: var(--brown);
   color: var(--paper);
-  max-width: 44rem;
+  display: grid;
+  gap: 1.5rem;
+  align-items: center;
+}
+@media (min-width: 52rem) {
+  .vend {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2.5rem;
+  }
+}
+.vend__head {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.85rem;
 }
 .vend h2 {
-  font-size: clamp(1.3rem, 3vw, 1.75rem);
-  margin-bottom: 0.75rem;
+  font-size: clamp(1.3rem, 3vw, 1.85rem);
+  margin: 0;
 }
 .vend p {
-  color: rgba(247, 243, 234, 0.8);
-  margin-bottom: 1.5rem;
-  max-width: 42ch;
+  color: rgba(247, 243, 234, 0.82);
+  margin: 0;
+  max-width: 54ch;
+}
+/* The icon needs to read on the dark panel. */
+.vend .event-icon {
+  background: rgba(247, 243, 234, 0.14);
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.vend .event-icon svg {
+  width: 1.45rem;
+  height: 1.45rem;
+  stroke: var(--green);
+}
+.vend .btn {
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------- events calendar -- */
+/* Date-led. The season is a run of near-identical Saturdays, so the day numbers
+   down the left rail are what gets scanned — not the titles, which repeat. */
+
+.events-month {
+  display: inline-block;
+  font-family: var(--font-condensed);
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--brown);
+  padding: 0.4rem 1rem 0.35rem;
+  border-radius: 4px;
+  /* A clear break between months — they're the main structure of the page. */
+  margin: clamp(4rem, 9vw, 6.5rem) 0 clamp(1.75rem, 4vw, 2.5rem);
+}
+.events-month:first-of-type {
+  margin-top: 0;
+}
+
+.event-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.event-item a {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1.25rem;
+  align-items: start;
+  padding: 0 0 clamp(2.25rem, 4vw, 3rem);
+  text-decoration: none;
+}
+@media (min-width: 40rem) {
+  .event-item a {
+    grid-template-columns: 5.5rem 1fr;
+    gap: 2rem;
+  }
+}
+/* Date, then the event, then where it stands — so the row uses the width
+   instead of stacking everything against the left edge. */
+@media (min-width: 62rem) {
+  .event-item a {
+    grid-template-columns: 5.5rem minmax(0, 1fr) 11rem;
+    gap: 2.5rem;
+    align-items: center;
+  }
+}
+.event-item a:hover .event-item__title {
+  text-decoration: underline;
+  text-decoration-color: var(--green);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 3px;
+}
+
+.event-item__date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.65rem 0.35rem 0.75rem;
+  border-radius: 10px;
+  background: var(--white);
+  border: 2px solid var(--rule);
+  border-bottom-width: 5px;
+  border-bottom-color: var(--green);
+}
+.event-item__dow {
+  font-family: var(--font-condensed);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.event-item__day {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  line-height: 1.05;
+  color: var(--brown);
+  font-variant-numeric: tabular-nums;
+}
+
+.event-item__body {
+  padding-top: 0.15rem;
+}
+.event-item__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+  line-height: 1.2;
+  color: var(--brown);
+  margin: 0 0 0.4rem;
+}
+.event-item__when {
+  font-family: var(--font-condensed);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin: 0 0 0.55rem;
+}
+.event-item__summary {
+  margin: 0;
+  color: var(--ink-muted);
+}
+
+.event-item__aside {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1rem;
+  margin-top: 0.75rem;
+}
+@media (min-width: 62rem) {
+  .event-item__aside {
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    margin-top: 0;
+    gap: 0.5rem;
+  }
+}
+.event-item__tag {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--green-dark);
+}
+.event-item__more {
+  font-family: var(--font-condensed);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.event-item a:hover .event-item__more {
+  color: var(--brown);
+}
+
+/* ---------------------------------------------------------- event icons -- */
+/* Same stroked language as the pillar icons; the tint says which kind of day
+   it is without needing a label. */
+
+.event-item__head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.4rem;
+}
+.event-item__head .event-item__title {
+  margin: 0;
+}
+
+.event-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 9px;
+}
+.event-icon svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.event-icon--market {
+  background: rgba(69, 190, 107, 0.16);
+}
+.event-icon--market svg {
+  stroke: var(--green-dark);
+}
+
+.event-icon--class {
+  background: rgba(226, 59, 46, 0.12);
+}
+.event-icon--class svg {
+  stroke: var(--red);
+}
+
+.event-icon--dinner {
+  background: rgba(63, 50, 43, 0.1);
+}
+.event-icon--dinner svg {
+  stroke: var(--brown);
+}
+
+/* The two flagship days carry the strongest marks. */
+.event-icon--rgc {
+  background: var(--red);
+}
+.event-icon--rgc svg {
+  stroke: var(--white);
+}
+
+.event-icon--juneteenth {
+  background: var(--brown);
+}
+.event-icon--juneteenth svg {
+  stroke: var(--green);
+}
+
+.event-icon--celebration {
+  background: rgba(69, 190, 107, 0.16);
+}
+.event-icon--celebration svg {
+  stroke: var(--green-dark);
+}
+
+.event-icon--other {
+  background: rgba(63, 50, 43, 0.08);
+}
+.event-icon--other svg {
+  stroke: var(--brown-mid);
 }
