@@ -700,6 +700,10 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Home {
   id: number;
   /**
+   * Small line above the logo. Clear it to hide.
+   */
+  heroEyebrow?: string | null;
+  /**
    * First line, in brown.
    */
   heroLineOne: string;
@@ -752,6 +756,7 @@ export interface Setting {
  * via the `definition` "home_select".
  */
 export interface HomeSelect<T extends boolean = true> {
+  heroEyebrow?: T;
   heroLineOne?: T;
   heroLineTwo?: T;
   heroLede?: T;

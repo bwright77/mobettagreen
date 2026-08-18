@@ -69,6 +69,7 @@ export default async function HomePage() {
   return (
     <>
       <section className="wrap hero">
+        {home?.heroEyebrow ? <p className="eyebrow hero__eyebrow">{home.heroEyebrow}</p> : null}
         <Wordmark />
         <h1 className="hero__title">
           <span>{home?.heroLineOne}</span>

@@ -87,6 +87,7 @@ const rgcMark = await upload(
 await payload.updateGlobal({
   slug: 'home',
   data: {
+    heroEyebrow: 'Denver · Five Points · Since 2010',
     heroLineOne: 'Something good',
     heroLineTwo: 'is growing.',
     heroLede:

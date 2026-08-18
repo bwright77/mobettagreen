@@ -18,6 +18,14 @@ export const Home: GlobalConfig = {
       label: 'Hero',
       fields: [
         {
+          name: 'heroEyebrow',
+          type: 'text',
+          defaultValue: 'Denver · Five Points · Since 2010',
+          admin: {
+            description: 'Small line above the logo. Clear it to hide.',
+          },
+        },
+        {
           type: 'row',
           fields: [
             {

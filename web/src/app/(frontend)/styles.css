@@ -382,6 +382,9 @@ p {
   padding-bottom: clamp(1.25rem, 3.5vw, 2.5rem);
   text-align: center;
 }
+.hero__eyebrow {
+  margin-bottom: 1.25rem;
+}
 .hero .logo {
   font-size: clamp(2rem, 8vw, 4.2rem);
   margin-bottom: 1.5rem;
