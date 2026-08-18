@@ -67,8 +67,14 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
+    pages: Page;
+    events: Event;
+    registrations: Registration;
+    press: Press;
+    partners: Partner;
+    producers: Producer;
     media: Media;
+    users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -76,8 +82,14 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
+    registrations: RegistrationsSelect<false> | RegistrationsSelect<true>;
+    press: PressSelect<false> | PressSelect<true>;
+    partners: PartnersSelect<false> | PartnersSelect<true>;
+    producers: ProducersSelect<false> | ProducersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -119,6 +131,214 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  title: string;
+  /**
+   * Leave blank to generate from the title.
+   */
+  slug?: string | null;
+  /**
+   * Used in listings and link previews.
+   */
+  summary?: string | null;
+  heroImage?: (number | null) | Media;
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: number;
+  title: string;
+  /**
+   * Leave blank to generate from the title.
+   */
+  slug?: string | null;
+  type: 'market' | 'class' | 'dinner' | 'annual' | 'other';
+  startsAt: string;
+  endsAt?: string | null;
+  /**
+   * e.g. Mosaic campus, or 2401 Welton St
+   */
+  locationName?: string | null;
+  address?: string | null;
+  /**
+   * One or two lines, used in listings.
+   */
+  summary?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image?: (number | null) | Media;
+  signup: 'none' | 'rsvp' | 'paid';
+  /**
+   * Per person, in dollars.
+   */
+  price?: number | null;
+  /**
+   * Total seats. Leave empty for unlimited.
+   */
+  capacity?: number | null;
+  waitlist?: boolean | null;
+  /**
+   * Leave empty to accept sign-ups until the event starts.
+   */
+  signupClosesAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "registrations".
+ */
+export interface Registration {
+  id: number;
+  event: number | Event;
+  name: string;
+  email: string;
+  phone?: string | null;
+  /**
+   * Seats taken by this sign-up.
+   */
+  partySize: number;
+  status: 'pending' | 'confirmed' | 'waitlisted' | 'cancelled';
+  /**
+   * Dietary needs, accessibility, anything else.
+   */
+  notes?: string | null;
+  /**
+   * In dollars. Empty for free events.
+   */
+  amountPaid?: number | null;
+  stripePaymentIntent?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "press".
+ */
+export interface Press {
+  id: number;
+  title: string;
+  outlet: string;
+  publishedAt?: string | null;
+  /**
+   * Full link to the article.
+   */
+  url: string;
+  /**
+   * A line or two worth pulling out. Optional.
+   */
+  excerpt?: string | null;
+  image?: (number | null) | Media;
+  /**
+   * Show this one first.
+   */
+  featured?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: number;
+  name: string;
+  /**
+   * Their website.
+   */
+  url?: string | null;
+  logo?: (number | null) | Media;
+  /**
+   * A sentence on what you do together.
+   */
+  blurb?: string | null;
+  /**
+   * Lower numbers show first.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "producers".
+ */
+export interface Producer {
+  id: number;
+  name: string;
+  /**
+   * e.g. Grass-fed beef, pasture-raised eggs
+   */
+  sells?: string | null;
+  /**
+   * Where people order from them.
+   */
+  buyUrl?: string | null;
+  /**
+   * e.g. Yoder, Colorado
+   */
+  location?: string | null;
+  story?: string | null;
+  image?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -141,25 +361,6 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -186,12 +387,36 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'pages';
+        value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'events';
+        value: number | Event;
+      } | null)
+    | ({
+        relationTo: 'registrations';
+        value: number | Registration;
+      } | null)
+    | ({
+        relationTo: 'press';
+        value: number | Press;
+      } | null)
+    | ({
+        relationTo: 'partners';
+        value: number | Partner;
+      } | null)
+    | ({
+        relationTo: 'producers';
+        value: number | Producer;
       } | null)
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -237,6 +462,119 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  summary?: T;
+  heroImage?: T;
+  body?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  type?: T;
+  startsAt?: T;
+  endsAt?: T;
+  locationName?: T;
+  address?: T;
+  summary?: T;
+  description?: T;
+  image?: T;
+  signup?: T;
+  price?: T;
+  capacity?: T;
+  waitlist?: T;
+  signupClosesAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "registrations_select".
+ */
+export interface RegistrationsSelect<T extends boolean = true> {
+  event?: T;
+  name?: T;
+  email?: T;
+  phone?: T;
+  partySize?: T;
+  status?: T;
+  notes?: T;
+  amountPaid?: T;
+  stripePaymentIntent?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "press_select".
+ */
+export interface PressSelect<T extends boolean = true> {
+  title?: T;
+  outlet?: T;
+  publishedAt?: T;
+  url?: T;
+  excerpt?: T;
+  image?: T;
+  featured?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_select".
+ */
+export interface PartnersSelect<T extends boolean = true> {
+  name?: T;
+  url?: T;
+  logo?: T;
+  blurb?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "producers_select".
+ */
+export interface ProducersSelect<T extends boolean = true> {
+  name?: T;
+  sells?: T;
+  buyUrl?: T;
+  location?: T;
+  story?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -256,24 +594,6 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
- */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
