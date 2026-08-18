@@ -12,7 +12,7 @@
 
 /* Admin-only, behind auth: one cached request is a fair trade for matching the
    front end's typography without a custom provider component. */
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&display=swap');
 
 :root {
   /* Neutral ramp, warmed toward the brand brown (#3f322b) so nothing reads as
@@ -73,6 +73,26 @@
 
   --font-body:
     'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  /* The site's display face, for headings — same as the front end. */
+  --font-display: 'Archivo Black', 'Arial Black', Impact, sans-serif;
+}
+
+/* ------------------------------------------------------------ typography --
+   Bring the admin's type in line with the site's style guide: Archivo for
+   body a touch larger for room to breathe, and Archivo Black on headings with
+   the tight display leading the front end uses. Unlayered, so these win over
+   Payload's own @layer'd defaults. */
+html {
+  font-size: 14px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400; /* Archivo Black is heavy at 400; 700 would fake-bold it. */
+  letter-spacing: -0.01em;
+  line-height: 1.12;
 }
 
 /* Paper rather than pure white, matching the front end. */
@@ -285,8 +305,7 @@
 
 .mbg-dash__welcome h1 {
   margin: 0 0 0.25rem;
-  font-size: 1.9rem;
-  font-weight: 700;
+  font-size: 2rem;
 }
 .mbg-dash__welcome p {
   margin: 0;
@@ -351,8 +370,7 @@
 }
 .mbg-dash__panel-head h2 {
   margin: 0;
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-size: 1.1rem;
 }
 .mbg-dash__panel-head a {
   font-size: 0.82rem;
