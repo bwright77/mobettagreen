@@ -119,8 +119,21 @@
 .mbg-mark--logo {
   font-size: 3.4rem;
 }
+/* Horizontal and matched in size, the same lockup the site nav uses. The
+   stacked version sizes GREEN larger so it spans MO'BETTA; on one line that
+   just makes one word outweigh the other. */
 .mbg-mark--icon {
-  font-size: 1.05rem;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.28em;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+.mbg-mark--icon .mbg-mark__mo,
+.mbg-mark--icon .mbg-mark__green {
+  font-size: 1em;
+  margin-top: 0;
+  letter-spacing: -0.01em;
 }
 
 /* ---------------------------------------------------------- login screen -- */
@@ -187,4 +200,74 @@
   width: 100%;
   justify-content: center;
   margin: 0;
+}
+
+/* ------------------------------------------------------------ account menu -- */
+
+.mbg-avatar {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #45be6b;
+  color: #14331f;
+  cursor: pointer;
+  user-select: none;
+}
+.mbg-avatar__initials {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+.mbg-avatar:focus-visible {
+  outline: 2px solid #45be6b;
+  outline-offset: 2px;
+}
+
+/* Portalled out of the header's account link, so it sits above everything. */
+.mbg-menu__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+}
+.mbg-menu {
+  position: fixed;
+  z-index: 100;
+  min-width: 13rem;
+  padding: 0.4rem;
+  border-radius: 10px;
+  background: var(--theme-elevation-0, #fff);
+  border: 1px solid var(--theme-elevation-150, rgba(63, 50, 43, 0.15));
+  box-shadow: 0 16px 40px rgba(13, 11, 9, 0.22);
+}
+.mbg-menu__who {
+  margin: 0;
+  padding: 0.5rem 0.7rem 0.6rem;
+  font-size: 0.78rem;
+  color: var(--theme-elevation-600, #665a47);
+  border-bottom: 1px solid var(--theme-elevation-100, rgba(63, 50, 43, 0.1));
+  overflow-wrap: anywhere;
+}
+.mbg-menu__item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 0.7rem;
+  margin-top: 0.25rem;
+  border: 0;
+  border-radius: 7px;
+  background: none;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--theme-elevation-800, #362f25);
+  text-decoration: none;
+  cursor: pointer;
+}
+.mbg-menu__item:hover {
+  background: var(--theme-elevation-100, rgba(63, 50, 43, 0.07));
+}
+.mbg-menu__item--danger {
+  color: #e23b2e;
 }

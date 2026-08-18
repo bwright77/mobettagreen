@@ -36,4 +36,7 @@ if (existing.docs.length > 0) {
   await payload.create({ collection: 'pages', data })
   console.log('created rgc-day page')
 }
+// Give the pool back rather than exiting hard — a stranded session
+// counts against Supabase's 15-client limit until it times out.
+await payload.db.destroy?.()
 process.exit(0)

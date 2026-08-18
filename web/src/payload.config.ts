@@ -29,6 +29,7 @@ export default buildConfig({
       titleSuffix: " — Mo'Betta Green",
       icons: [{ rel: 'icon', type: 'image/svg+xml', url: '/favicon.svg' }],
     },
+    avatar: { Component: '@/components/admin/AdminAvatar#AdminAvatar' },
     components: {
       graphics: {
         Logo: '@/components/admin/Logo#Logo',
@@ -46,6 +47,18 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
+      /**
+       * Supabase's session pooler allows 15 clients total, and node-postgres
+       * defaults to 10 per pool. A dev server, a one-off script and the
+       * deployed app together blow through that and everything starts failing
+       * with EMAXCONNSESSION.
+       *
+       * Keep each process's share small, and hand connections back quickly
+       * rather than holding them idle.
+       */
+      max: Number(process.env.DATABASE_POOL_MAX ?? 3),
+      idleTimeoutMillis: 10_000,
+      connectionTimeoutMillis: 15_000,
     },
   }),
   sharp,

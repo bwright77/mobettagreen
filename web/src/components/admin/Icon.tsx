@@ -1,6 +1,6 @@
 import React from 'react'
 
-/** Compact lockup for the admin nav bar. */
+/** Nav mark — horizontal and equal weight, matching the site header. */
 export function Icon() {
   return (
     <span className="mbg-mark mbg-mark--icon">

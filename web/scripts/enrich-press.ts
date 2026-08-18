@@ -129,4 +129,7 @@ for (const item of all.docs) {
 }
 
 console.log(WRITE ? '\nsaved' : '\nreport only — re-run with --write to save')
+// Give the pool back rather than exiting hard — a stranded session
+// counts against Supabase's 15-client limit until it times out.
+await payload.db.destroy?.()
 process.exit(0)

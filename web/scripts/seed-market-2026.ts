@@ -82,4 +82,7 @@ const total = await payload.find({
   depth: 0,
 })
 console.log(`\nmarket days on record: ${total.totalDocs}`)
+// Give the pool back rather than exiting hard — a stranded session
+// counts against Supabase's 15-client limit until it times out.
+await payload.db.destroy?.()
 process.exit(0)

@@ -16,4 +16,7 @@ await payload.updateGlobal({
 const s = await payload.findGlobal({ slug: 'settings' })
 console.log('vendor link set:', String(s.vendorApplicationUrl).slice(0, 62) + '...')
 console.log('note:', s.vendorApplicationNote)
+// Give the pool back rather than exiting hard — a stranded session
+// counts against Supabase's 15-client limit until it times out.
+await payload.db.destroy?.()
 process.exit(0)

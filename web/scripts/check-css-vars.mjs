@@ -21,16 +21,13 @@ const EXTERNAL = new Set([
   '--font-archivo',
   '--font-archivo-black',
   '--font-anton',
-  // Payload's own design tokens, defined in @payloadcms/ui
-  '--theme-elevation-0',
-  '--theme-elevation-50',
-  '--theme-elevation-100',
-  '--theme-elevation-600',
-  '--theme-elevation-800',
-  '--theme-elevation-1000',
+  // Payload's own design tokens, defined in @payloadcms/ui. The elevation ramp
+  // runs 0–1000 in steps of 50.
+  ...Array.from({ length: 21 }, (_, i) => `--theme-elevation-${i * 50}`),
   '--theme-bg',
   '--theme-text',
   '--theme-input-bg',
+  '--theme-overlay',
 ])
 
 let failed = false

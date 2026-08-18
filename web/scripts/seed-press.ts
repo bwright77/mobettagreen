@@ -179,4 +179,7 @@ for (const partner of PARTNERS) {
 
 const total = await payload.find({ collection: 'press', limit: 0, depth: 0 })
 console.log('\npress items: ' + total.totalDocs)
+// Give the pool back rather than exiting hard — a stranded session
+// counts against Supabase's 15-client limit until it times out.
+await payload.db.destroy?.()
 process.exit(0)
